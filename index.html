@@ -2072,12 +2072,13 @@ function car(color, num, w=120, avatar=""){
   const carId = `c${++CAR_ID}`;
   const photo = /^https:\/\//i.test(String(avatar)) ? String(avatar).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;") : "";
   return `<svg class="car3d" width="${w}" height="${w*0.52}" viewBox="0 0 140 72" aria-hidden="true">
-    <defs><linearGradient id="body${carId}" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".34"/><stop offset=".48" stop-color="${color}"/><stop offset="1" stop-color="#111" stop-opacity=".52"/></linearGradient><clipPath id="driver${carId}"><circle cx="78" cy="25" r="7"/></clipPath></defs>
+    <defs><linearGradient id="body${carId}" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".34"/><stop offset=".48" stop-color="${color}"/><stop offset="1" stop-color="#111" stop-opacity=".52"/></linearGradient><clipPath id="shell${carId}"><path d="M10 43 18 31q3-5 12-6l27-2 11-13q3-4 10-4h21q8 0 13 8l8 12 12 4q6 2 6 9v7H10z"/></clipPath></defs>
     <ellipse cx="72" cy="56" rx="62" ry="8" fill="#000" opacity=".4"/>
-    <path d="M10 43 18 31q3-5 12-6l27-2 11-13q3-4 10-4h21q8 0 13 8l8 12 12 4q6 2 6 9v7H10z" fill="url(#body${carId})" stroke="#fff" stroke-opacity=".32" stroke-width="1.5"/>
+    <path d="M10 43 18 31q3-5 12-6l27-2 11-13q3-4 10-4h21q8 0 13 8l8 12 12 4q6 2 6 9v7H10z" fill="url(#body${carId})"/>
+    ${photo?`<image href="${photo}" x="8" y="5" width="132" height="43" preserveAspectRatio="xMidYMid slice" clip-path="url(#shell${carId})"/>`:""}
+    <path d="M10 43 18 31q3-5 12-6l27-2 11-13q3-4 10-4h21q8 0 13 8l8 12 12 4q6 2 6 9v7H10z" fill="url(#body${carId})" opacity=".38" stroke="#fff" stroke-opacity=".5" stroke-width="1.5"/>
     <path d="m68 12 9-1h20l9 12H57z" fill="#18232b" stroke="#fff" stroke-opacity=".5" stroke-width="1.2"/>
     <path d="m69 12 8-1 1 12H57z" fill="#a6d9e8" opacity=".24"/>
-    ${photo?`<image href="${photo}" x="71" y="18" width="14" height="14" preserveAspectRatio="xMidYMid slice" clip-path="url(#driver${carId})"/>`: `<circle cx="78" cy="25" r="6" fill="#d6a77a"/>`}
     <path d="M8 42h126v6H8z" fill="#111" opacity=".58"/><path d="m18 38 29-1v4H16zm87-1h23l8 5h-30z" fill="#fff" opacity=".3"/>
     <path d="M18 48h111" stroke="#fff" stroke-opacity=".65" stroke-width="1.5"/><path d="M14 32 7 34v5h7zm117 2 7 2v5h-7z" fill="#fff1b0"/>
     <circle cx="36" cy="49" r="10" fill="#101114"/><circle cx="36" cy="49" r="4.5" fill="#87909d" stroke="#c6cbd1"/><circle cx="112" cy="49" r="10" fill="#101114"/><circle cx="112" cy="49" r="4.5" fill="#87909d" stroke="#c6cbd1"/>
