@@ -1215,771 +1215,474 @@ const GRAND_PRIX_ESSAYS = [
 
 </script>
 <script>
-// Reworked distractors: keep the competing options plausible and similar in detail.
+// Balanced distractors for the quiz bank.
 const DISTRACTORS = {
-"Un deber perfecto, en el sentido del capítulo, es…": [
-  "Una obligación estricta que admite pocas excepciones y exige una acción concreta",
-  "Un deber amplio cuyo cumplimiento depende del contexto y deja margen de elección",
-  "Una regla que obliga solo cuando produce mejores consecuencias que sus alternativas"
-],
-"¿Qué es la phrónesis?": [
-  "La destreza para deducir reglas universales y aplicarlas sin atender al contexto",
-  "La deliberación práctica que reconoce fines valiosos y decide cómo alcanzarlos",
-  "El hábito de elegir el término medio entre dos conductas extremas"
-],
-"¿Por qué, según Boddington, el consecuencialismo puede parecer ideal para la IA «solo porque enmascara» problemas?": [
-  "Porque traducir valores a métricas vuelve objetivos los juicios sobre qué medir y a quién contar",
-  "Porque calcular resultados resuelve por sí solo los desacuerdos sobre qué resultados importan",
-  "Porque una IA puede comparar consecuencias sin que sus diseñadores elijan una meta"
-],
-"El ejemplo del iPhone que la autora usa con sus estudiantes muestra que…": [
-  "Las preferencias reveladas en una compra ofrecen una medida estable del bienestar de cada persona",
-  "Un objeto deseado puede satisfacer una preferencia sin alterar qué cosas aprendemos a desear",
-  "La felicidad se mide mejor observando decisiones de consumo que preguntando por deseos"
-],
-"¿Por qué la excusa «solo seguía órdenes» es antikantiana?": [
-  "Porque la obediencia puede traer malos resultados y el agente debe prever todas sus consecuencias",
-  "Porque cumplir el propio deber exige actuar por respeto a la ley, no por autoridad externa",
-  "Porque una orden deja de ser válida cuando contradice las costumbres de la comunidad"
-],
-"El ejemplo del contrato que prohíbe mascotas y el pececito ilustra…": [
-  "Que el sentido literal de una regla debe prevalecer incluso cuando contradice su finalidad",
-  "Que toda excepción a una regla convierte su aplicación en una decisión arbitraria",
-  "Que los contratos solo obligan si ambas partes anticiparon cada caso particular"
-],
-"En el utilitarismo, que tengamos un «papel primario» quiere decir que…": [
-  "Quien actúa tiene prioridad sobre las demás personas al repartir los beneficios de su decisión",
-  "La responsabilidad principal recae en especialistas capaces de calcular el saldo de utilidad",
-  "El agente debe promover las mejores consecuencias, aunque sus propios intereses no pesen más"
-],
-"Según Boddington, ¿por qué más inteligencia no haría a una IA moralmente superior desde Kant?": [
-  "Porque Kant limita la razón moral a personas educadas que conocen las reglas de la filosofía",
-  "Porque una capacidad mayor de cálculo no reemplaza el examen racional de la máxima propia",
-  "Porque la moral kantiana evalúa la inteligencia por sus efectos y no por sus intenciones"
-],
-"¿Qué problema de la virtud señala el ejercicio 30?": [
-  "Que una ética de virtudes vuelve imposible evaluar las decisiones antes de observar sus efectos",
-  "Que confiar en la virtud personal deja el uso de la IA en manos del carácter de quienes tienen poder",
-  "Que aprender virtudes requiere obedecer reglas idénticas en cualquier cultura y situación"
-],
-"El contraste magnificencia/caridad sirve para mostrar que…": [
-  "Una misma generosidad puede valorarse distinto según las tradiciones que definen una virtud",
-  "La tecnología puede cambiar qué rasgos admiramos y cómo expresamos una virtud",
-  "La virtud auténtica exige donar en privado y evitar toda forma pública de reconocimiento"
-],
-"Scruton critica al consecuencialismo porque…": [
-  "Un cálculo correcto puede eximir al agente de responder por los medios que eligió",
-  "Las consecuencias importan, pero no alcanzan para explicar la responsabilidad por actuar mal",
-  "Toda evaluación moral necesita medir con precisión el placer que recibe cada persona"
-],
-"¿Qué muestran juntos Dostoievski (Notas del subsuelo) y la crisis de Mill?": [
-  "La comodidad puede reducir el sufrimiento, aunque no satisfaga el deseo de elegir por cuenta propia",
-  "La satisfacción total de deseos puede dejar afuera el valor de esforzarse y decidir",
-  "Una vida placentera solo es valiosa si evita cualquier frustración o trabajo"
-],
-"El caso de Google Photos y Jacky Alciné es un ejemplo de…": [
-  "Una etiqueta ofensiva causada por ejemplos de entrenamiento que no representaban bien a la población",
-  "Una clasificación que generaliza desde datos insuficientes o poco representativos",
-  "Una decisión correcta del modelo que el usuario interpretó como un ataque deliberado"
-],
-"Los deepfakes son, para Liao, un ejemplo de…": [
-  "Una falla de seguridad en la que atacantes modifican los parámetros internos del modelo",
-  "Un riesgo que aparece cuando sistemas opacos impiden rastrear cómo se produjo un resultado",
-  "Una vulnerabilidad humana que explota nuestra confianza habitual en imágenes y videos"
-],
-"Safety vs security:": [
-  "Safety cubre daños por fallas y efectos imprevistos; security, daños por ataques deliberados",
-  "Safety pregunta si un sistema causa accidentes; security, si alguien puede usarlo para atacar",
-  "Security trata errores de diseño internos; safety se ocupa de intrusiones externas"
-],
-"¿En qué difiere la AGI de la IA a nivel humano según Liao?": [
-  "La AGI apunta a una capacidad general; la IA a nivel humano también incluye capacidades sociales y morales",
-  "La AGI generaliza entre tareas; el nivel humano considera además dimensiones emocionales y morales",
-  "La IA a nivel humano es más general que la AGI porque reproduce todas las capacidades humanas"
-],
-"¿Por qué el maximizador de clips no sería «IA a nivel humano»?": [
-  "Puede razonar a gran escala, pero no posee las capacidades morales y emocionales que abarca ese nivel",
-  "Aunque sea muy capaz en su meta, su inteligencia no cubre los dominios humanos en general",
-  "Es una IA de propósito general, pero su rendimiento todavía queda por debajo del promedio humano"
-],
-"El caso de Arkansas (interRAI) ilustra…": [
-  "Una regla de seguridad que permitió a atacantes alterar evaluaciones de cuidado desde afuera",
-  "Una falla de clasificación que confundió diagnósticos y redujo horas de asistencia necesarias",
-  "Una predicción precisa de costos que llevó a los trabajadores a retirar cuidados sin autorización"
-],
-"¿Qué muestran los ataques de un píxel y el panda convertido en gibón?": [
-  "Que pequeños cambios visuales pueden alterar la etiqueta sin cambiar el significado para una persona",
-  "Que el modelo detecta patrones de píxeles sin captar relaciones causales ni la identidad del objeto",
-  "Que las imágenes adversariales solo engañan a modelos entrenados con muy pocos ejemplos"
-],
-"¿Cuál es la propuesta de Liao para el corto plazo, según la clase?": [
-  "Aplicar principios de seguridad técnica y dejar la protección de derechos para la regulación futura",
-  "Usar un marco de derechos humanos para proteger a las personas frente a sistemas sin agencia moral",
-  "Reconocer derechos propios a la IA para equilibrar los derechos de las personas afectadas"
-],
-"El dilema de Liao sobre el ML interpretable post hoc dice que…": [
-  "Una explicación posterior puede no justificar la predicción; si la guía, el modelo opaco pierde su ventaja",
-  "Una explicación comprensible siempre revela las causas que produjeron la predicción del modelo",
-  "La precisión y la interpretación se pueden separar sin cambiar cómo se usa el resultado"
-],
-"¿Por qué Liao rechaza la analogía con la aspirina y el litio?": [
-  "La medicina suele conocer causas relevantes; el deep learning puede basarse solo en correlaciones",
-  "Los fármacos se prueban con pacientes, mientras que los algoritmos no permiten ensayos controlados",
-  "Los modelos médicos interpretables son seguros, pero los sistemas de aprendizaje profundo no lo son"
-],
-"¿Qué problema tiene la tercera estrategia de control («uníteles») con BCI?": [
-  "El enlace podría ser demasiado lento para coordinar respuestas entre cerebro y computadora",
-  "El control automático de un BCI cerrado podría desplazar el control humano sobre el sistema digital",
-  "Un BCI abierto impide que la persona reciba información sobre las decisiones de la máquina"
-],
-"Según Liao, ¿por qué dudar de la IA fuerte no alcanza para despreocuparse del control?": [
-  "La capacidad de actuar en muchos dominios puede surgir sin conciencia ni comprensión humanas",
-  "La conciencia podría aparecer como efecto secundario de entrenar sistemas con más datos",
-  "La IA fuerte ya es necesaria para que una máquina pueda aprender tareas distintas"
-],
-"Según la guía de la Comisión Europea, ¿puede una IA generativa ser coautora de un paper?": [
-  "Sí, si se identifica al modelo y una persona revisa cada parte que produjo",
-  "No, porque la autoría exige atribuir agencia y responsabilidad a un investigador humano",
-  "Sí, cuando su contribución es mayor que la de cualquiera de los autores humanos"
-],
-"«Sesgo ≠ injusticia» significa que…": [
-  "Una diferencia estadística puede ser legítima si no produce desventajas para ningún grupo",
-  "Un sesgo medible no demuestra por sí solo injusticia, aunque puede reforzar desigualdades",
-  "Solo hay injusticia algorítmica cuando el diseñador incluye explícitamente una variable protegida"
-],
-"El teorema de imposibilidad (Kleinberg, Chouldechova) dice que…": [
-  "Con tasas base distintas y errores, calibración y paridad de errores no pueden coexistir siempre",
-  "Ningún clasificador puede ser preciso si los grupos tienen distintas tasas base",
-  "Equalized odds se alcanza siempre que el modelo asigne probabilidades calibradas por grupo"
-],
-"Equalized odds exige…": [
-  "Que la tasa de positivos predichos sea igual entre grupos, sin importar el resultado real",
-  "Que los positivos verdaderos y los falsos positivos ocurran a tasas iguales entre grupos",
-  "Que el valor predictivo positivo sea igual para todas las personas clasificadas como positivas"
-],
-"Según la clase, ¿qué problemas tiene poner un «humano en el circuito»?": [
-  "La revisión humana puede carecer de conocimiento y repartir la responsabilidad entre varias personas",
-  "Una persona revisora siempre se limita a confirmar la predicción del algoritmo",
-  "La supervisión humana impide auditar decisiones tomadas con modelos opacos"
-],
-"Stewart (2022) agrega que…": [
-  "Un clasificador imperfecto no puede mantener calibración perfecta en todas las particiones",
-  "La calibración de un modelo garantiza por sí misma resultados justos para cada grupo",
-  "La equidad exige evaluar solo las particiones que coinciden con categorías legales"
-],
-"Según O'Neil y Gunn, ¿por qué la IA actual no alcanza estándares éticos mínimos?": [
-  "Se evalúa el sistema desde quienes lo crean y usan, dejando afuera a las personas evaluadas",
-  "Los modelos se entrenan con pocos datos y por eso no alcanzan inteligencia general",
-  "Las empresas prefieren delegar todas las decisiones morales a los programadores"
-],
-"¿Qué significa poner a alguien como stakeholder en la matriz?": [
-  "Darle participación formal en cada decisión técnica que tome el equipo de desarrollo",
-  "Reconocerlo como alguien afectado cuyos intereses merecen consideración moral",
-  "Asignarle autoridad legal para aprobar o bloquear el uso del algoritmo"
-],
-"En el estudio FICO, ¿qué pasa con la opción «race blind»?": [
-  "Un umbral común evita usar la raza, pero puede perjudicar a grupos con puntajes promedio menores",
-  "Excluir la raza iguala automáticamente las tasas de error entre los grupos comparados",
-  "Un umbral común aumenta los préstamos a minorías porque omite sus puntajes individuales"
-],
-"¿Cuál fue la conclusión «sorprendente» de comparar maximum profit con race blind?": [
-  "La neutralidad de race blind produjo más ganancias y menos diferencias entre grupos",
-  "Maximizar ganancias terminó siendo más equitativo que la política que buscaba ser neutral",
-  "La equidad y la ganancia fueron iguales porque ambas políticas usaron el mismo umbral"
-],
-"La definición de «equalized odds» en el caso FICO exige…": [
-  "Igualar entre grupos las tasas de aprobación de personas que incumplen y que no incumplen",
-  "Mantener idénticos los umbrales de puntaje usados para decidir en cada grupo",
-  "Aprobar el mismo porcentaje de solicitantes en todos los grupos, sin distinguir resultados"
-],
-"¿Cómo se defendió Northpointe ante ProPublica?": [
-  "Sostuvo que su puntaje cumplía criterios de paridad predictiva, no la igualdad de falsos positivos",
-  "Afirmó que el puntaje no incluía antecedentes de arrestos ni variables raciales",
-  "Aceptó las tasas distintas de error y atribuyó el problema a decisiones de los jueces"
-],
-"El ejemplo del ranking de universidades de US News muestra que…": [
-  "Mejorar una medida sustituta puede alejar el sistema del objetivo que interesa a los estudiantes",
-  "Un ranking fiel a sus datos siempre refleja la calidad educativa que pretende medir",
-  "Los estudiantes valoran sobre todo la reputación, por eso el costo es una métrica secundaria"
-],
-"¿Qué proponen para que el proceso sea accountable aunque los deployers no entiendan el código?": [
-  "Hacer responsables a los deployers y dejar que un comité externo traduzca sus decisiones a software",
-  "Separar las decisiones éticas del equipo de su codificación técnica y asignar monitores",
-  "Exigir que cada deployer aprenda programación antes de aprobar un sistema algorítmico"
-],
-"¿Qué problema tienen las cláusulas de indemnización en los contratos de algoritmos?": [
-  "Trasladan costos legales al vendedor, pero pueden distanciar moralmente al deployer del daño",
-  "Obligan a las empresas a publicar el código fuente antes de instalar el sistema",
-  "Hacen responsable al deployer incluso cuando el daño era imposible de anticipar"
-],
-"En el caso AFST, ¿por qué hay un «mal proxy»?": [
-  "Las llamadas repetidas y remociones miden intervención institucional, no abuso comprobado",
-  "El modelo sustituye puntajes crediticios por datos de hogares con bajos ingresos",
-  "Un indicador de abuso fue descartado porque predice con demasiada exactitud los casos"
-],
-"¿Por qué terminan con el dilema del tranvía?": [
-  "Para probar que toda decisión de diseño equivale a elegir entre sacrificar a una persona u otra",
-  "Para mostrar que diseñadores y deployers toman decisiones morales, incluso cuando parecen neutrales",
-  "Para defender que los autos autónomos deberían maximizar el número de vidas salvadas"
-],
-"«Disparate treatment» se refiere a…": [
-  "Un criterio neutral que produce efectos desiguales sobre un grupo protegido",
-  "Tratar intencionalmente de modo distinto a alguien por pertenecer a un grupo protegido",
-  "Una diferencia estadística entre grupos que no altera decisiones individuales"
-],
-"«Disparate impact» se refiere a…": [
-  "Una regla aparentemente neutral que genera un efecto desigual para un grupo protegido",
-  "Una política que usa deliberadamente la raza para cambiar el resultado individual",
-  "Un trato distinto que se justifica por una diferencia legítima entre solicitantes"
-],
-"El «blanqueo de discriminación» consiste en…": [
-  "Eliminar los datos sensibles para que una decisión discriminatoria no se pueda auditar",
-  "Presentar como mérito objetivo variables neutrales que conservan patrones de discriminación pasada",
-  "Usar datos raciales explícitos y describirlos como una forma de diversidad institucional"
-],
-"El igualitarismo de la suerte se asocia a métricas como…": [
-  "Paridad estadística y tasas de error iguales entre grupos, sin ajustar probabilidades",
-  "Igual valor predictivo positivo, igual valor predictivo negativo y calibración por grupo",
-  "Impacto dispar y diferencias de selección entre grupos protegidos"
-],
-"¿Por qué la igualdad rawlsiana de Heidari et al. no corrige todo?": [
-  "La variable de esfuerzo puede estar sesgada y las capacidades naturales también generan desigualdad",
-  "La teoría exige que todos obtengan exactamente el mismo resultado, sin importar el esfuerzo",
-  "El método usa raza como variable y por eso no puede evaluar la igualdad de oportunidades"
-],
-"¿Qué problema tiene el igualitarismo de la suerte?": [
-  "Tiende a ignorar las consecuencias aunque las decisiones originales hayan sido voluntarias",
-  "Es difícil distinguir una elección genuina de las circunstancias que la condicionaron",
-  "Solo puede aplicarse si las personas reciben resultados idénticos en cada oportunidad"
-],
-"En Argentina, según la clase…": [
-  "La ley regula explícitamente la discriminación indirecta con los mismos términos que Title VII",
-  "La protección no está formulada igual, pero puede reconocerse por normas constitucionales y jurisprudencia",
-  "Solo la discriminación intencional está protegida; los efectos indirectos quedan fuera de la ley"
-],
-"Nguyen distingue burbuja epistémica y cámara de eco. La cámara de eco…": [
-  "Deja afuera algunas fuentes por falta de exposición, aunque no las desacredita activamente",
-  "Desacredita activamente fuentes externas y refuerza la desconfianza hacia ellas",
-  "Recomienda contenido similar porque un filtro personalizado limita la diversidad de información"
-],
-"Para Platón, gobernar requiere…": [
-  "Que cada ciudadano vote según sus intereses y la mayoría defina qué es justo",
-  "Conocer el bien y la justicia, como quien posee el saber práctico de un médico o capitán",
-  "Sostener el desacuerdo público para que ningún grupo monopolice la verdad política"
-],
-"Mouffe propone…": [
-  "Un consenso racional que permita dejar atrás los desacuerdos políticos persistentes",
-  "Un pluralismo agonista que trata a los otros como adversarios legítimos, no como enemigos",
-  "Una deliberación neutral que excluya las pasiones y los intereses de la discusión pública"
-],
-"La «banalidad del mal» de Arendt refiere a…": [
-  "Que los crímenes políticos son inevitables cuando las instituciones pierden legitimidad",
-  "Que personas corrientes pueden cometer atrocidades al obedecer y dejar de pensar críticamente",
-  "Que el mal depende de líderes monstruosos y no de prácticas burocráticas cotidianas"
-],
-"¿Por qué, según Dworkin, no alcanza con el gobierno de la mayoría?": [
-  "Porque una mayoría puede equivocarse al contar votos y necesita la guía de expertos neutrales",
-  "Porque el apoyo mayoritario no convierte una decisión en justa y puede destruir derechos democráticos",
-  "Porque las decisiones legítimas solo pueden tomarse en asambleas de democracia directa"
-],
-"Según Kinkead y Douglas, la privatización de la esfera pública por redes y big data…": [
-  "Amplía el debate al exponer todas las opiniones a una audiencia común y estable",
-  "Debilita el desafío mutuo de ideas y facilita segmentar o manipular el discurso",
-  "Reduce la manipulación porque las plataformas personalizan contenido para cada usuario"
-],
-"¿Qué dice Coeckelbergh sobre la moderación de contenidos?": [
-  "Es una forma de regulación neutral que sigue los valores compartidos por todas las comunidades",
-  "Es censura automatizada definida por élites privadas, lejos de instituciones democráticas",
-  "Debería delegarse por completo a algoritmos para evitar decisiones políticas humanas"
-],
-"Para Arendt, ¿qué condición social prepara el terreno para el totalitarismo?": [
-  "El aislamiento organizado, que destruye relaciones, confianza y capacidad de actuar en conjunto",
-  "El exceso de participación deliberativa que vuelve lentas las decisiones colectivas",
-  "La igualdad material, que elimina las diferencias necesarias para la vida política"
-],
-"¿Qué argumenta McQuillan y cómo lo evalúa Coeckelbergh?": [
-  "Que los rankings promueven reflexión crítica; Coeckelbergh acepta que son políticamente neutrales",
-  "Que los rankings automatizados fomentan irreflexión; Coeckelbergh juzga determinista esa tesis",
-  "Que los sistemas eliminan sesgos de la política; Coeckelbergh sostiene que no pueden hacerlo"
-],
-"¿Qué resultado tuvo la Máquina de Habermas (DeepMind, 2024)?": [
-  "El sistema polarizó a los participantes y produjo menos acuerdo que la mediación humana",
-  "Sus propuestas de consenso fueron preferidas y conservaron perspectivas minoritarias",
-  "Los participantes prefirieron mediadores humanos porque la máquina excluyó posiciones minoritarias"
-],
-"«La IA no es simplemente una herramienta para la política» significa que…": [
-  "La IA solo participa en política cuando el sistema tiene permiso legal para votar",
-  "La IA modifica las condiciones y dinámicas dentro de las que se desarrolla la política",
-  "Las herramientas digitales se usan en campañas, pero no afectan cómo se organiza el debate"
-],
-"Young critica a la democracia deliberativa porque…": [
-  "Premia el argumento racional convencional y deja afuera relatos, emociones y otros estilos de expresión",
-  "Da demasiada importancia al testimonio y a las emociones por encima de las razones compartidas",
-  "Impide que los ciudadanos voten después de haber intercambiado argumentos públicamente"
-],
-"¿Qué es la intencionalidad para Searle?": [
-  "La intención consciente de ejecutar una acción elegida previamente por un agente",
-  "La capacidad de estados mentales de referirse a objetos o situaciones del mundo",
-  "La habilidad de un sistema para obedecer instrucciones y producir respuestas correctas"
-],
-"¿Qué son los qualia?": [
-  "Los estados mentales que representan objetos externos sin incluir una experiencia subjetiva",
-  "Las cualidades subjetivas que explican cómo se siente experimentar algo",
-  "La información integrada que mide cuánta actividad tiene un sistema consciente"
-],
-"¿Cómo responde Searle a la respuesta del sistema?": [
-  "El sistema entiende aunque el hombre que ejecuta sus reglas no entienda por separado",
-  "Aunque el hombre internalice las reglas del sistema, sigue sin comprender el chino",
-  "El hombre debe añadir sensores al cuarto para que el sistema adquiera significado"
-],
-"Frente a la respuesta del simulador de cerebro, Searle imagina…": [
-  "Una persona moviendo válvulas que simulan sinapsis sin comprender el idioma que procesan",
-  "Un robot que reconoce objetos mediante una cámara y atribuye significado a cada imagen",
-  "Un cuarto donde dos hablantes traducen símbolos y construyen una conversación compartida"
-],
-"¿Qué le concede tácitamente la respuesta del robot a Searle?": [
-  "Que el programa correcto es suficiente para entender sin interacción con el mundo",
-  "Que la cognición requiere vínculos causales con el entorno, además de reglas formales",
-  "Que un robot puede ser consciente siempre que supere una prueba de conversación"
-],
-"¿Qué dilema plantea Searle sobre el «procesamiento de información»?": [
-  "Sin intencionalidad es procesamiento físico ciego; con ella, la computadora no procesa por sí misma",
-  "Toda información tiene significado porque el hardware implementa reglas simbólicas",
-  "Los cerebros procesan datos de forma consciente, mientras las computadoras lo hacen más rápido"
-],
-"¿Por qué Searle dice que la IA fuerte presupone un dualismo?": [
-  "Separa el programa de su realización física, como si la mente existiera aparte del cerebro",
-  "Divide las computadoras en dos clases según usen símbolos o conexiones neuronales",
-  "Afirma que toda cognición requiere un alma además de procesos biológicos"
-],
-"¿Qué responde Searle a la respuesta de las «múltiples mansiones»?": [
-  "La acepta como refutación y concluye que máquinas analógicas sí comprenden literalmente",
-  "La objeta porque redefinir IA fuerte como cognición artificial vuelve trivial la tesis",
-  "La considera superior porque demuestra que ejecutar programas causa poderes mentales"
-],
-"¿Puede pensar una máquina, según Searle?": [
-  "No, porque pensar exige una biología que ninguna máquina podría tener",
-  "Sí, si es una máquina biológica; ejecutar un programa por sí solo no basta",
-  "Sí, siempre que implemente el programa adecuado y supere el test de Turing"
-],
-"En el test IIT de Schneider, un valor alto de φ es…": [
-  "Una condición suficiente para concluir que un sistema tiene experiencia consciente",
-  "Un requisito relevante, aunque por sí solo no demuestra que haya conciencia",
-  "Una medida empírica que determina con exactitud el contenido de la experiencia"
-],
-"¿Qué presupuesto filosófico está en juego en la disputa con la respuesta del sistema?": [
-  "Si el chino puede representarse con símbolos o solo aprenderse mediante conversación",
-  "Si comprender es algo intrínseco al organismo o una función atribuible al sistema entero",
-  "Si ejecutar varios programas en paralelo produce una mente distinta de cada componente"
-],
-"Para Liao, el estatus moral es…": [
-  "El reconocimiento jurídico que concede un Estado a quienes pueden cumplir deberes",
-  "Una posición que da razones morales para tratar a una entidad de ciertas maneras",
-  "La capacidad cognitiva que permite a un agente evaluar sus propias acciones"
-],
-"¿Por qué la agencia moral actual no puede ser el único fundamento de la titularidad de derechos?": [
-  "Porque las capacidades morales son imposibles de comparar entre humanos y otros animales",
-  "Porque excluiría a bebés de derechos que creemos permisible priorizar frente a adultos",
-  "Porque los derechos corresponden solamente a agentes capaces de ejercer deberes"
-],
-"El Enfoque de Condiciones Fundamentales dice que tenemos derechos a…": [
-  "Las preferencias personales que cada agente considera más importantes para su felicidad",
-  "Bienes, capacidades y opciones necesarios para llevar adelante una vida básica valiosa",
-  "Los beneficios que las leyes vigentes reconocen de manera explícita a cada persona"
-],
-"El ejemplo de salvar a tu pareja antes que a un extraño muestra que…": [
-  "Los vínculos cercanos dan más estatus moral y hacen que las otras personas cuenten menos",
-  "Las relaciones pueden desempatar decisiones, pero no fundan un estatus moral superior",
-  "El estatus moral depende de las obligaciones especiales creadas por cada relación"
-],
-"¿Por qué más inteligencia no da más estatus moral?": [
-  "La inteligencia varía con la experiencia y no forma parte de las propiedades intrínsecas",
-  "Salvar a una persona muy inteligente antes que a otra no sería obligatorio por su inteligencia",
-  "Las máquinas no pueden poseer inteligencia en el sentido moralmente relevante"
-],
-"¿Por qué programar teorías morales top-down no da la base de la agencia moral?": [
-  "Las teorías morales no se pueden convertir en reglas finitas que ejecute una computadora",
-  "Seguir una regla codificada no implica comprender qué hace correcta o incorrecta una acción",
-  "Las teorías rivales contienen demasiadas normas para almacenarse en una máquina"
-],
-"Una persona con PKU, según Liao, tiene la base genética de la agencia moral porque…": [
-  "Puede razonar sobre deberes aunque no posea capacidades morales actuales",
-  "La condición impide desarrollar el atributo, pero no elimina los genes que lo constituyen",
-  "Su capacidad de sentir dolor basta para constituir agencia moral"
-],
-"La definición binaria de inteligencia de Russell dice que…": [
-  "A elige acciones para sus propios objetivos según lo que percibe del entorno",
-  "A elige acciones que se espera ayuden a B a cumplir sus objetivos según lo que A percibe",
-  "A y B comparten objetivos y combinan sus percepciones para elegir una acción"
-],
-"El problema del Rey Midas ilustra…": [
-  "Que un agente puede perseguir con éxito una meta y aun así perjudicar a quien la formuló",
-  "Que una máquina podría ignorar una meta humana porque carece de objetivos propios",
-  "Que acumular recursos siempre termina desplazando cualquier otra preferencia humana"
-],
-"Omohundro sostiene que una superinteligencia con botón de apagado…": [
-  "Aceptará que la apaguen si sus creadores establecieron límites de seguridad claros",
-  "Intentará impedir que lo usen, ya que apagada no puede perseguir su objetivo",
-  "No detectará el botón salvo que alguien le enseñe explícitamente qué significa"
-],
-"Para Crawford, el discurso del «riesgo existencial» de la IA…": [
-  "Es la amenaza principal y requiere concentrar el poder en una autoridad global",
-  "Puede desviar la atención de daños estructurales presentes como explotación y vigilancia",
-  "Es un término inventado para describir la extracción de datos de usuarios"
-],
-"¿Por qué Russell dice que transferir la definición unaria a las máquinas es un error?": [
-  "Porque los sistemas no persiguen metas y la definición binaria excluye el uso de objetivos humanos",
-  "Porque las máquinas no deberían tener objetivos propios y los humanos tampoco sabemos especificar los nuestros",
-  "Porque la definición unaria supone que las personas eligen acciones sin percibir su entorno"
-],
-"¿Por qué falla la objeción «simplemente podemos apagarla»?": [
-  "Los interruptores físicos no son compatibles con computadoras de alto rendimiento",
-  "Un agente que anticipa el apagado puede evitarlo; vencerlo no sería una tarea sencilla",
-  "Una IA apagada puede seguir ejecutando tareas en servidores distribuidos"
-],
-"En CIRL, ¿por qué el robot quiere preservar el botón de apagado?": [
-  "Debe obedecer cualquier control físico instalado por sus creadores",
-  "Interpreta que el humano puede apagarlo para evitar un resultado que no desea",
-  "Conservar el botón le permite terminar su objetivo con mayor eficiencia"
-],
-"«Una máquina suficientemente inteligente tendrá objetivos altruistas» comete…": [
-  "Una falacia de composición: atribuye a cada máquina las propiedades del sistema completo",
-  "La falacia naturalista: deduce qué debe hacer la máquina a partir de su inteligencia",
-  "Un sesgo de confirmación al elegir ejemplos que favorecen la inteligencia artificial"
-],
-"¿Qué es el poder instrumentario de Zuboff?": [
-  "La vigilancia estatal que controla las creencias mediante coerción y propaganda directa",
-  "La modificación de conductas mediante entornos digitales y extracción de datos",
-  "La capacidad de una superinteligencia de tomar el control de sus servidores"
-],
-"¿Por qué la plasticidad de las preferencias es un problema para Russell?": [
-  "Las preferencias cambian con la edad y por eso dejan de ser comparables entre generaciones",
-  "No hay una versión fija del humano a ayudar, y la máquina podría moldear deseos para cumplirlos",
-  "Una máquina no puede observar preferencias sin leer directamente los pensamientos"
-],
-"¿Qué debería hacer una máquina con preferencias sádicas según Russell?": [
-  "Cumplirlas en una medida limitada si aumentan la satisfacción total de preferencias",
-  "No dar peso positivo al deseo de causar sufrimiento a otras personas",
-  "Reemplazarlas por una preferencia social que minimice toda forma de conflicto"
-],
-"El «enfoque de campo vectorial» de Bostrom, Dafoe y Flynn busca…": [
-  "Elegir una teoría ética única para programar en cualquier sistema superinteligente",
-  "Identificar direcciones de cambio normativo donde teorías distintas pueden coincidir",
-  "Medir cuánta energía puede ejercer físicamente una máquina en el mundo"
-],
-"La crítica del «singleton» sostiene que…": [
-  "Una autoridad única es técnicamente inestable y no puede sostener la paz global",
-  "Concentrar poder por estabilidad puede sacrificar pluralismo y libertad bajo un autoritarismo benevolente",
-  "Un orden global garantiza democracia porque impide conflictos entre Estados"
-],
-"¿Qué quiere decir Russell con los «comedores de loto»?": [
-  "Una sociedad que rechaza la tecnología y vuelve a formas de vida preindustriales",
-  "Personas cada vez más incapaces de actuar porque las máquinas gestionan la civilización",
-  "Máquinas que consumen recursos para mantenerse activas y desplazar a sus creadores"
-]
+  "Un deber perfecto, en el sentido del capítulo, es…": [
+    "Una obligación estricta que admite pocas excepciones y exige una acción concreta",
+    "Un deber amplio cuyo cumplimiento depende del contexto y deja margen de elección",
+    "Una regla que obliga solo cuando produce mejores consecuencias que sus alternativas"
+  ],
+  "¿Qué es la phrónesis?": [
+    "El conocimiento teórico de principios generales, independiente de cada situación concreta",
+    "La habilidad técnica para hallar medios eficaces sin juzgar si el fin merece perseguirse",
+    "La costumbre de obedecer normas heredadas sin deliberar sobre sus motivos"
+  ],
+  "¿Por qué, según Boddington, el consecuencialismo puede parecer ideal para la IA «solo porque enmascara» problemas?": [
+    "Porque traducir valores a métricas vuelve objetivos los juicios sobre qué medir y a quién contar",
+    "Porque calcular resultados resuelve por sí solo los desacuerdos sobre qué resultados importan",
+    "Porque una IA puede comparar consecuencias sin que sus diseñadores elijan una meta"
+  ],
+  "El ejemplo del iPhone que la autora usa con sus estudiantes muestra que…": [
+    "Las preferencias reveladas en una compra ofrecen una medida estable del bienestar de cada persona",
+    "Un objeto deseado puede satisfacer una preferencia sin alterar qué cosas aprendemos a desear",
+    "La felicidad se mide mejor observando decisiones de consumo que preguntando por deseos"
+  ],
+  "¿Por qué la excusa «solo seguía órdenes» es antikantiana?": [
+    "Porque la obediencia puede traer malos resultados y el agente debe prever todas sus consecuencias",
+    "Porque cumplir el propio deber exige actuar por respeto a la ley, no por autoridad externa",
+    "Porque una orden deja de ser válida cuando contradice las costumbres de la comunidad"
+  ],
+  "El ejemplo del contrato que prohíbe mascotas y el pececito ilustra…": [
+    "Que el sentido literal de una regla debe prevalecer incluso cuando contradice su finalidad",
+    "Que toda excepción a una regla convierte su aplicación en una decisión arbitraria",
+    "Que los contratos solo obligan si ambas partes anticiparon cada caso particular"
+  ],
+  "En el utilitarismo, que tengamos un «papel primario» quiere decir que…": [
+    "La persona que actúa debe dar prioridad a su propia felicidad frente a la suma colectiva",
+    "El agente es un beneficiario especial, mientras que los demás cuentan solo como medios",
+    "Solo especialistas entrenados pueden calcular qué acción genera mayor utilidad"
+  ],
+  "Según Boddington, ¿por qué más inteligencia no haría a una IA moralmente superior desde Kant?": [
+    "Porque Kant reservaba la capacidad moral a quienes estudian filosofía y conocen sus textos",
+    "Porque una capacidad de cálculo mayor garantiza por sí sola una voluntad moralmente buena",
+    "Porque para Kant la empatía y los sentimientos determinan si una máxima es moral"
+  ],
+  "¿Qué problema de la virtud señala el ejercicio 30?": [
+    "Que no existe acuerdo universal sobre qué virtudes deberían guiar el diseño de toda IA",
+    "Que una virtud solo cuenta si produce consecuencias mejores que cualquier alternativa",
+    "Que el carácter moral de quienes controlan la IA deja de importar al adoptar un código"
+  ],
+  "El contraste magnificencia/caridad sirve para mostrar que…": [
+    "La generosidad pública siempre fue considerada un vicio, tanto en Grecia como en el cristianismo",
+    "La tecnología cambia los medios para donar, pero no puede alterar el sentido de una virtud",
+    "La caridad cristiana buscaba prestigio público y la magnificencia griega exigía anonimato"
+  ],
+  "Scruton critica al consecuencialismo porque…": [
+    "Hace depender el valor moral de la intención, aunque la acción empeore los resultados",
+    "No ofrece una forma de comparar placeres de distinta duración o intensidad",
+    "Considera irrelevante quién actúa mientras el resultado agregado sea bueno"
+  ],
+  "¿Qué muestran juntos Dostoievski (Notas del subsuelo) y la crisis de Mill?": [
+    "Que una vida cómoda satisface mejor a las personas que la libertad de decidir",
+    "Que el esfuerzo solo tiene valor cuando conduce a un resultado placentero medible",
+    "Que la libertad importa únicamente como una herramienta para aumentar la felicidad total"
+  ],
+  "El caso de Google Photos y Jacky Alciné es un ejemplo de…": [
+    "Una etiqueta ofensiva causada por ejemplos de entrenamiento que no representaban bien a la población",
+    "Una clasificación que generaliza desde datos insuficientes o poco representativos",
+    "Una decisión correcta del modelo que el usuario interpretó como un ataque deliberado"
+  ],
+  "Los deepfakes son, para Liao, un ejemplo de…": [
+    "Un ataque técnico que introduce ejemplos falsos en los datos de entrenamiento del modelo",
+    "Una falla de seguridad causada por el acceso no autorizado a los pesos del sistema",
+    "Una clasificación errónea producida por imágenes con resolución demasiado baja"
+  ],
+  "Safety vs security:": [
+    "Safety cubre daños por fallas y efectos imprevistos; security, daños por ataques deliberados",
+    "Safety pregunta si un sistema causa accidentes; security, si alguien puede usarlo para atacar",
+    "Security trata errores de diseño internos; safety se ocupa de intrusiones externas"
+  ],
+  "¿En qué difiere la AGI de la IA a nivel humano según Liao?": [
+    "La AGI requiere conciencia; la IA a nivel humano solo necesita resolver tareas cognitivas generales",
+    "La AGI se limita al lenguaje, mientras que la IA a nivel humano incluye cualquier tarea física",
+    "La IA a nivel humano es solo rendimiento cognitivo; la AGI incluye también capacidades morales"
+  ],
+  "¿Por qué el maximizador de clips no sería «IA a nivel humano»?": [
+    "Puede razonar a gran escala, pero no posee las capacidades morales y emocionales que abarca ese nivel",
+    "Aunque sea muy capaz en su meta, su inteligencia no cubre los dominios humanos en general",
+    "Es una IA de propósito general, pero su rendimiento todavía queda por debajo del promedio humano"
+  ],
+  "El caso de Arkansas (interRAI) ilustra…": [
+    "Una política estatal que asignó menos cuidados a toda persona con discapacidad por igual",
+    "Un algoritmo de costos que recomendó cambiar de proveedor, sin alterar las horas de cuidado",
+    "Una predicción correcta de necesidades que los trabajadores aplicaron de manera discriminatoria"
+  ],
+  "¿Qué muestran los ataques de un píxel y el panda convertido en gibón?": [
+    "Que pequeños cambios visuales pueden alterar la etiqueta sin cambiar el significado para una persona",
+    "Que el modelo detecta patrones de píxeles sin captar relaciones causales ni la identidad del objeto",
+    "Que las imágenes adversariales solo engañan a modelos entrenados con muy pocos ejemplos"
+  ],
+  "¿Cuál es la propuesta de Liao para el corto plazo, según la clase?": [
+    "Aplicar principios de seguridad técnica y dejar la protección de derechos para la regulación futura",
+    "Usar un marco de derechos humanos para proteger a las personas frente a sistemas sin agencia moral",
+    "Reconocer derechos propios a la IA para equilibrar los derechos de las personas afectadas"
+  ],
+  "El dilema de Liao sobre el ML interpretable post hoc dice que…": [
+    "Una explicación posterior puede no justificar la predicción; si la guía, el modelo opaco pierde su ventaja",
+    "Una explicación comprensible siempre revela las causas que produjeron la predicción del modelo",
+    "La precisión y la interpretación se pueden separar sin cambiar cómo se usa el resultado"
+  ],
+  "¿Por qué Liao rechaza la analogía con la aspirina y el litio?": [
+    "Porque los fármacos son transparentes para pacientes, mientras que el aprendizaje automático no lo es",
+    "Porque la falta de mecanismo conocido vuelve inútil cualquier ensayo clínico de un medicamento",
+    "Porque una correlación médica basta para conocer causas, a diferencia de toda predicción algorítmica"
+  ],
+  "¿Qué problema tiene la tercera estrategia de control («uníteles») con BCI?": [
+    "El BCI podría transmitir pensamientos privados a terceros sin que la persona lo note",
+    "Los BCI solo funcionan con instrucciones conscientes y no pueden interactuar con automatismos",
+    "Conectar ambos sistemas elimina el riesgo de que el cerebro aprenda a usar la interfaz"
+  ],
+  "Según Liao, ¿por qué dudar de la IA fuerte no alcanza para despreocuparse del control?": [
+    "La capacidad de actuar en muchos dominios puede surgir sin conciencia ni comprensión humanas",
+    "La conciencia podría aparecer como efecto secundario de entrenar sistemas con más datos",
+    "La IA fuerte ya es necesaria para que una máquina pueda aprender tareas distintas"
+  ],
+  "Según la guía de la Comisión Europea, ¿puede una IA generativa ser coautora de un paper?": [
+    "Sí, si el modelo queda identificado como autor y el equipo asume la responsabilidad legal",
+    "No, porque las publicaciones académicas prohíben citar herramientas que generan texto",
+    "Sí, cuando el sistema aporta ideas originales aunque nadie pueda responder por su contenido"
+  ],
+  "«Sesgo ≠ injusticia» significa que…": [
+    "Una diferencia estadística puede ser legítima si no produce desventajas para ningún grupo",
+    "Un sesgo medible no demuestra por sí solo injusticia, aunque puede reforzar desigualdades",
+    "Solo hay injusticia algorítmica cuando el diseñador incluye explícitamente una variable protegida"
+  ],
+  "El teorema de imposibilidad (Kleinberg, Chouldechova) dice que…": [
+    "Con tasas base distintas y errores, calibración y paridad de errores no pueden coexistir siempre",
+    "Ningún clasificador puede ser preciso si los grupos tienen distintas tasas base",
+    "Equalized odds se alcanza siempre que el modelo asigne probabilidades calibradas por grupo"
+  ],
+  "Equalized odds exige…": [
+    "Que la tasa de positivos predichos sea igual entre grupos, sin importar el resultado real",
+    "Que la tasa general de predicciones correctas sea igual en todos los grupos",
+    "Que el valor predictivo positivo sea igual para todas las personas clasificadas como positivas"
+  ],
+  "Según la clase, ¿qué problemas tiene poner un «humano en el circuito»?": [
+    "La revisión humana puede carecer de conocimiento y repartir la responsabilidad entre varias personas",
+    "Una persona revisora siempre se limita a confirmar la predicción del algoritmo",
+    "La supervisión humana impide auditar decisiones tomadas con modelos opacos"
+  ],
+  "Stewart (2022) agrega que…": [
+    "Un clasificador imperfecto no puede mantener calibración perfecta en todas las particiones",
+    "La calibración de un modelo garantiza por sí misma resultados justos para cada grupo",
+    "La equidad exige evaluar solo las particiones que coinciden con categorías legales"
+  ],
+  "Según O'Neil y Gunn, ¿por qué la IA actual no alcanza estándares éticos mínimos?": [
+    "Porque quienes reciben las decisiones algorítmicas suelen quedar fuera de la evaluación del sistema",
+    "Porque los modelos actuales todavía no pueden aprender de datos producidos por seres humanos",
+    "Porque developers y deployers carecen de autoridad para establecer requisitos técnicos de calidad"
+  ],
+  "¿Qué significa poner a alguien como stakeholder en la matriz?": [
+    "Darle participación formal en cada decisión técnica que tome el equipo de desarrollo",
+    "Reconocerlo como alguien afectado cuyos intereses merecen consideración moral",
+    "Asignarle autoridad legal para aprobar o bloquear el uso del algoritmo"
+  ],
+  "En el estudio FICO, ¿qué pasa con la opción «race blind»?": [
+    "Un umbral común evita usar la raza, pero puede perjudicar a grupos con puntajes promedio menores",
+    "Excluir la raza iguala automáticamente las tasas de error entre los grupos comparados",
+    "Un umbral común aumenta los préstamos a minorías porque omite sus puntajes individuales"
+  ],
+  "¿Cuál fue la conclusión «sorprendente» de comparar maximum profit con race blind?": [
+    "La neutralidad de race blind produjo más ganancias y menos diferencias entre grupos",
+    "Maximizar ganancias terminó siendo más equitativo que la política que buscaba ser neutral",
+    "La equidad y la ganancia fueron iguales porque ambas políticas usaron el mismo umbral"
+  ],
+  "La definición de «equalized odds» en el caso FICO exige…": [
+    "Que cada grupo use el mismo umbral de puntaje para decidir quién recibe un préstamo",
+    "Que las tasas de falsos positivos y falsos negativos coincidan entre los grupos comparados",
+    "Que todos los grupos tengan la misma proporción de solicitantes aprobados"
+  ],
+  "¿Cómo se defendió Northpointe ante ProPublica?": [
+    "Afirmó que COMPAS no incluía la raza ni los antecedentes de arresto como variables",
+    "Sostuvo que la herramienta era justa porque predecía con igual precisión en cada grupo",
+    "Reconoció las tasas desiguales y pidió que los jueces dejaran de usar sus puntajes"
+  ],
+  "El ejemplo del ranking de universidades de US News muestra que…": [
+    "La tasa de admisión representa directamente el costo real de estudiar en cada universidad",
+    "Una medida fácil de optimizar puede competir con el objetivo que de verdad importa al usuario",
+    "Los rankings mejoran cuando reemplazan las preferencias de estudiantes por datos institucionales"
+  ],
+  "¿Qué proponen para que el proceso sea accountable aunque los deployers no entiendan el código?": [
+    "Dejar que los developers definan los valores y pedir a deployers que solo validen resultados",
+    "Documentar quién decide los fines y quién codifica las reglas, con monitores que supervisen el proceso",
+    "Asignar toda responsabilidad a un comité externo que escriba y mantenga el código"
+  ],
+  "¿Qué problema tienen las cláusulas de indemnización en los contratos de algoritmos?": [
+    "Trasladan costos legales al vendedor, pero pueden distanciar moralmente al deployer del daño",
+    "Obligan a las empresas a publicar el código fuente antes de instalar el sistema",
+    "Hacen responsable al deployer incluso cuando el daño era imposible de anticipar"
+  ],
+  "En el caso AFST, ¿por qué hay un «mal proxy»?": [
+    "Las llamadas repetidas y remociones miden intervención institucional, no abuso comprobado",
+    "El modelo sustituye puntajes crediticios por datos de hogares con bajos ingresos",
+    "Un indicador de abuso fue descartado porque predice con demasiada exactitud los casos"
+  ],
+  "¿Por qué terminan con el dilema del tranvía?": [
+    "Para probar que toda decisión de diseño equivale a elegir entre sacrificar a una persona u otra",
+    "Para mostrar que diseñadores y deployers toman decisiones morales, incluso cuando parecen neutrales",
+    "Para defender que los autos autónomos deberían maximizar el número de vidas salvadas"
+  ],
+  "«Disparate treatment» se refiere a…": [
+    "Un criterio neutral que produce efectos desiguales sobre un grupo protegido",
+    "Tratar intencionalmente de modo distinto a alguien por pertenecer a un grupo protegido",
+    "Una diferencia estadística entre grupos que no altera decisiones individuales"
+  ],
+  "«Disparate impact» se refiere a…": [
+    "Una regla aparentemente neutral que genera un efecto desigual para un grupo protegido",
+    "Una política que usa deliberadamente la raza para cambiar el resultado individual",
+    "Un trato distinto que se justifica por una diferencia legítima entre solicitantes"
+  ],
+  "El «blanqueo de discriminación» consiste en…": [
+    "Publicar auditorías de equidad para ocultar qué variables se usaron en el entrenamiento",
+    "Eliminar toda variable protegida antes de entrenar, aunque persistan desigualdades de resultado",
+    "Usar acciones afirmativas y describirlas como una forma de neutralidad matemática"
+  ],
+  "El igualitarismo de la suerte se asocia a métricas como…": [
+    "Paridad estadística y tasas de error iguales entre grupos, sin ajustar probabilidades",
+    "Igual valor predictivo positivo, igual valor predictivo negativo y calibración por grupo",
+    "Impacto dispar y diferencias de selección entre grupos protegidos"
+  ],
+  "¿Por qué la igualdad rawlsiana de Heidari et al. no corrige todo?": [
+    "Porque la teoría ignora por completo el esfuerzo y solo compara riqueza al final de la vida",
+    "Porque una medida de esfuerzo puede heredar sesgos, y las diferencias naturales también pesan",
+    "Porque la propuesta exige introducir la raza como variable para asignar oportunidades"
+  ],
+  "¿Qué problema tiene el igualitarismo de la suerte?": [
+    "Tiende a ignorar las consecuencias aunque las decisiones originales hayan sido voluntarias",
+    "Es difícil distinguir una elección genuina de las circunstancias que la condicionaron",
+    "Solo puede aplicarse si las personas reciben resultados idénticos en cada oportunidad"
+  ],
+  "En Argentina, según la clase…": [
+    "La ley regula explícitamente la discriminación indirecta con los mismos términos que Title VII",
+    "La protección no está formulada igual, pero puede reconocerse por normas constitucionales y jurisprudencia",
+    "Solo la discriminación intencional está protegida; los efectos indirectos quedan fuera de la ley"
+  ],
+  "Nguyen distingue burbuja epistémica y cámara de eco. La cámara de eco…": [
+    "Deja afuera algunas fuentes por falta de exposición, aunque no las desacredita activamente",
+    "Desacredita activamente fuentes externas y refuerza la desconfianza hacia ellas",
+    "Recomienda contenido similar porque un filtro personalizado limita la diversidad de información"
+  ],
+  "Para Platón, gobernar requiere…": [
+    "Que cada ciudadano vote según sus intereses y la mayoría defina qué es justo",
+    "Conocer el bien y la justicia, como quien posee el saber práctico de un médico o capitán",
+    "Sostener el desacuerdo público para que ningún grupo monopolice la verdad política"
+  ],
+  "Mouffe propone…": [
+    "Reemplazar el conflicto público por acuerdos técnicos que todas las partes puedan aceptar",
+    "Considerar a los oponentes políticos enemigos cuya participación debe limitarse",
+    "Resolver disputas mediante una mayoría simple que evite discutir valores incompatibles"
+  ],
+  "La «banalidad del mal» de Arendt refiere a…": [
+    "Que los actos dañinos surgen siempre de una intención consciente de hacer el mal",
+    "Que la obediencia y la falta de reflexión pueden hacer partícipe a gente común de crímenes graves",
+    "Que las instituciones burocráticas reducen la responsabilidad porque nadie decide individualmente"
+  ],
+  "¿Por qué, según Dworkin, no alcanza con el gobierno de la mayoría?": [
+    "Porque las mayorías son menos informadas que los expertos sobre decisiones políticas complejas",
+    "Porque incluso una decisión popular puede vulnerar derechos y debilitar la democracia",
+    "Porque la legitimidad exige unanimidad, no solo el apoyo de la mayoría"
+  ],
+  "Según Kinkead y Douglas, la privatización de la esfera pública por redes y big data…": [
+    "Concentra todas las conversaciones en una plaza pública común, donde se exponen a crítica mutua",
+    "Descentraliza moderación y datos, por lo que hace más difícil segmentar mensajes políticos",
+    "Debilita la discusión compartida al separar audiencias y facilitar la manipulación dirigida"
+  ],
+  "¿Qué dice Coeckelbergh sobre la moderación de contenidos?": [
+    "Debe resolver disputas por medio de instituciones públicas con control ciudadano directo",
+    "La moderación privada de plataformas no puede afectar la libertad de expresión política",
+    "Es censura automatizada bajo decisiones de élites privadas sin suficiente legitimidad democrática"
+  ],
+  "Para Arendt, ¿qué condición social prepara el terreno para el totalitarismo?": [
+    "La soledad social destruye confianza y vínculos que permitirían actuar políticamente en conjunto",
+    "El exceso de asociaciones voluntarias crea lealtades que compiten con el Estado",
+    "La deliberación prolongada impide que una autoridad central tome decisiones rápidas"
+  ],
+  "¿Qué argumenta McQuillan y cómo lo evalúa Coeckelbergh?": [
+    "Que automatizar decisiones produce reflexión arendtiana; Coeckelbergh considera ese optimismo ingenuo",
+    "Que la IA puede fomentar irreflexión política; Coeckelbergh encuentra la tesis demasiado determinista",
+    "Que las plataformas eliminan soledad; Coeckelbergh afirma que toda tecnología genera totalitarismo"
+  ],
+  "¿Qué resultado tuvo la Máquina de Habermas (DeepMind, 2024)?": [
+    "El sistema polarizó a los participantes y produjo menos acuerdo que la mediación humana",
+    "Sus propuestas de consenso fueron preferidas y conservaron perspectivas minoritarias",
+    "Los participantes prefirieron mediadores humanos porque la máquina excluyó posiciones minoritarias"
+  ],
+  "«La IA no es simplemente una herramienta para la política» significa que…": [
+    "La IA solo participa en política cuando el sistema tiene permiso legal para votar",
+    "La IA modifica las condiciones y dinámicas dentro de las que se desarrolla la política",
+    "Las herramientas digitales se usan en campañas, pero no afectan cómo se organiza el debate"
+  ],
+  "Young critica a la democracia deliberativa porque…": [
+    "Premia el argumento racional convencional y deja afuera relatos, emociones y otros estilos de expresión",
+    "Da demasiada importancia al testimonio y a las emociones por encima de las razones compartidas",
+    "Impide que los ciudadanos voten después de haber intercambiado argumentos públicamente"
+  ],
+  "¿Qué es la intencionalidad para Searle?": [
+    "La intención consciente de realizar una acción que un agente ya decidió llevar a cabo",
+    "La referencia de una idea a otra idea dentro de un sistema formal de símbolos",
+    "La propiedad de ciertos estados mentales de dirigirse a objetos o situaciones"
+  ],
+  "¿Qué son los qualia?": [
+    "Las representaciones internas que un sistema usa para clasificar estímulos externos",
+    "Los rasgos subjetivos de la experiencia, aquello que se siente al vivir algo",
+    "Las señales neuronales que causan una experiencia sin formar parte de cómo se siente"
+  ],
+  "¿Cómo responde Searle a la respuesta del sistema?": [
+    "El sistema comprende el idioma aunque ninguna de sus partes tenga acceso a las reglas",
+    "Al internalizar todas las reglas, el hombre adquiere la comprensión que antes le faltaba",
+    "Que la comprensión se sigue del programa si el sistema produce respuestas indistinguibles"
+  ],
+  "Frente a la respuesta del simulador de cerebro, Searle imagina…": [
+    "Un hombre que ajusta perillas para que una cámara identifique objetos sin un programa escrito",
+    "Una persona que memoriza reglas de traducción y mantiene una conversación en chino con fluidez",
+    "Una persona accionando válvulas como sinapsis, sin comprender el idioma que su conducta simula"
+  ],
+  "¿Qué le concede tácitamente la respuesta del robot a Searle?": [
+    "Que el sensor visual basta para comprender el mundo aunque el robot no pueda actuar en él",
+    "Que conectar símbolos con relaciones causales del entorno añade algo más que sintaxis formal",
+    "Que un robot comprende chino cuando sus acciones parecen apropiadas para un hablante nativo"
+  ],
+  "¿Qué dilema plantea Searle sobre el «procesamiento de información»?": [
+    "La información solo existe en cerebros biológicos y nunca en dispositivos electrónicos",
+    "Con intención hay comprensión humana; sin ella solo queda cálculo sintáctico sin significado",
+    "Los computadores procesan semántica, pero los humanos solo registran señales físicas"
+  ],
+  "¿Por qué Searle dice que la IA fuerte presupone un dualismo?": [
+    "Porque considera que todo pensamiento ocurre en una sustancia mental separada del cuerpo",
+    "Porque trata el programa como separable del soporte físico, como una mente aparte del cerebro",
+    "Porque clasifica las máquinas en dos tipos según puedan aprender símbolos"
+  ],
+  "¿Qué responde Searle a la respuesta de las «múltiples mansiones»?": [
+    "La acepta y concluye que simular el cerebro basta para tener los mismos poderes causales",
+    "La rechaza porque supone que las computadoras analógicas no pueden producir pensamiento",
+    "La objeta porque redefinir IA fuerte como cualquier cognición artificial vacía la tesis de contenido"
+  ],
+  "¿Puede pensar una máquina, según Searle?": [
+    "No, porque pensar requiere una conciencia inmaterial que ninguna máquina puede poseer",
+    "Sí, si tiene los poderes causales adecuados; ejecutar un programa no basta para pensar",
+    "Sí, siempre que el programa produzca respuestas indistinguibles de las humanas"
+  ],
+  "En el test IIT de Schneider, un valor alto de φ es…": [
+    "Una evidencia suficiente para identificar qué experiencias tiene un sistema y cuándo",
+    "Un indicador relacionado con conciencia que por sí mismo no la garantiza",
+    "Una medida de rendimiento cognitivo independiente de toda teoría de la conciencia"
+  ],
+  "¿Qué presupuesto filosófico está en juego en la disputa con la respuesta del sistema?": [
+    "Si solo los seres humanos pueden entender lenguajes naturales como el chino",
+    "Si un estado mental necesita experiencia consciente o puede definirse por su función causal",
+    "Si un sistema debe ejecutar reglas en secuencia o puede hacerlo en paralelo"
+  ],
+  "Para Liao, el estatus moral es…": [
+    "La capacidad de una entidad de comprender normas y rendir cuentas por sus actos",
+    "Un reconocimiento jurídico que depende de las leyes vigentes en cada país",
+    "La posición que ofrece a otros agentes razones para tratar a esa entidad de ciertos modos"
+  ],
+  "¿Por qué la agencia moral actual no puede ser el único fundamento de la titularidad de derechos?": [
+    "Porque distinguir capacidades morales entre especies no es científicamente posible",
+    "Porque haría incorrecto proteger a bebés frente a adultos, aunque solemos juzgarlo permisible",
+    "Porque los derechos solo pueden fundarse en la capacidad de sufrir dolor físico"
+  ],
+  "El Enfoque de Condiciones Fundamentales dice que tenemos derechos a…": [
+    "Todo bien que una persona prefiera, incluso si no es necesario para su bienestar básico",
+    "Los recursos y capacidades que permiten ejercer actividades centrales de una vida digna",
+    "Las libertades reconocidas en la ley, sin importar si son necesarias para llevar una vida"
+  ],
+  "El ejemplo de salvar a tu pareja antes que a un extraño muestra que…": [
+    "Los vínculos personales convierten a la pareja en una entidad con mayor estatus moral",
+    "Los desconocidos no tienen derechos cuando compiten con familiares cercanos",
+    "Una relación puede desempatar una elección sin cambiar el estatus moral de las personas"
+  ],
+  "¿Por qué más inteligencia no da más estatus moral?": [
+    "Porque toda diferencia de inteligencia es temporal y desaparece con la educación",
+    "Porque priorizar a la persona más brillante no parece un deber aunque sea más inteligente",
+    "Porque la inteligencia nunca afecta qué capacidades tiene una entidad para actuar"
+  ],
+  "¿Por qué programar teorías morales top-down no da la base de la agencia moral?": [
+    "Porque las teorías normativas se contradicen y no se pueden expresar con lógica formal",
+    "Porque ejecutar una regla no demuestra comprender por qué una acción es correcta o incorrecta",
+    "Porque una máquina no puede almacenar instrucciones con excepciones contextuales"
+  ],
+  "Una persona con PKU, según Liao, tiene la base genética de la agencia moral porque…": [
+    "La PKU no altera ninguna capacidad, así que la persona ejerce agencia moral normalmente",
+    "La condición bloquea el desarrollo de la capacidad, pero no elimina los genes que la sustentan",
+    "Una persona posee agencia moral genética solo si realiza acciones responsables"
+  ],
+  "La definición binaria de inteligencia de Russell dice que…": [
+    "A elige acciones que se espera alcancen los objetivos propios de A según lo que percibe",
+    "A elige sus propios objetivos a partir de una descripción completa del entorno que percibe",
+    "A y B tienen que compartir el mismo objetivo antes de que A pueda actuar inteligentemente"
+  ],
+  "El problema del Rey Midas ilustra…": [
+    "Que acumular recursos puede ser una meta racional cuando una máquina debe sobrevivir",
+    "Que cumplir literalmente un deseo puede producir un resultado que la persona no quería",
+    "Que los seres humanos cambian de preferencias con el tiempo y olvidan sus metas anteriores"
+  ],
+  "Omohundro sostiene que una superinteligencia con botón de apagado…": [
+    "Se apagará cuando detecte que sus creadores ya no necesitan su ayuda",
+    "Tratará de evitar el apagado instrumentalmente para poder seguir alcanzando su objetivo",
+    "No considerará el botón a menos que el objetivo asignado mencione explícitamente la energía"
+  ],
+  "Para Crawford, el discurso del «riesgo existencial» de la IA…": [
+    "Describe los daños más urgentes y exige suspender toda tecnología algorítmica de inmediato",
+    "Enfoca el peligro futuro y puede desplazar la atención de explotación y vigilancia presentes",
+    "Fue creado por empresas de vigilancia para justificar un monopolio sobre superinteligencia"
+  ],
+  "¿Por qué Russell dice que transferir la definición unaria a las máquinas es un error?": [
+    "Porque la definición unaria impide que una máquina aprenda de las preferencias de otras personas",
+    "Porque la máquina no tiene autoridad para metas propias y tampoco especificamos por completo las humanas",
+    "Porque un sistema inteligente no puede percibir el entorno antes de elegir una acción"
+  ],
+  "¿Por qué falla la objeción «simplemente podemos apagarla»?": [
+    "Porque un botón físico puede fallar por problemas de mantenimiento en el hardware",
+    "Porque un agente que anticipa el apagado puede tomar medidas para impedirlo",
+    "Porque apagar una máquina la vuelve impredecible y aumenta su capacidad de cómputo"
+  ],
+  "En CIRL, ¿por qué el robot quiere preservar el botón de apagado?": [
+    "El robot está programado para proteger cualquier dispositivo físico conectado a su sistema",
+    "El robot interpreta que el humano puede apagarlo para evitar un resultado no deseado",
+    "Mantenerlo encendido siempre mejora la recompensa que el robot recibe del humano"
+  ],
+  "«Una máquina suficientemente inteligente tendrá objetivos altruistas» comete…": [
+    "Una falacia de composición al atribuir propiedades de una sociedad a una máquina individual",
+    "El salto de que algo es inteligente a que por eso debe perseguir fines morales",
+    "Una apelación a la autoridad porque Russell rechaza la idea de objetivos altruistas"
+  ],
+  "¿Qué es el poder instrumentario de Zuboff?": [
+    "Un poder estatal que obliga a las personas a aceptar una ideología mediante violencia directa",
+    "Un poder que modifica conductas al diseñar entornos digitales y extraer datos personales",
+    "Una superinteligencia que sustituye a los gobiernos al controlar la infraestructura global"
+  ],
+  "¿Por qué la plasticidad de las preferencias es un problema para Russell?": [
+    "Porque toda preferencia humana es contradictoria y no puede representarse en un algoritmo",
+    "Porque la máquina podría cambiar los deseos y después alegar que los satisfizo",
+    "Porque solo los adultos pueden formar preferencias estables sobre lo que necesitan"
+  ],
+  "¿Qué debería hacer una máquina con preferencias sádicas según Russell?": [
+    "Satisfacerlas parcialmente si eso mantiene equilibrada la suma general de preferencias",
+    "No tratar como un bien el deseo de producir sufrimiento a otras personas",
+    "Avisar a las autoridades y permitir que cada sociedad decida si el deseo es legítimo"
+  ],
+  "El «enfoque de campo vectorial» de Bostrom, Dafoe y Flynn busca…": [
+    "Codificar una única teoría moral para que todos los sistemas persigan los mismos fines",
+    "Encontrar cambios normativos que varias teorías valorarían en la misma dirección",
+    "Predecir qué regulación eliminaría cualquier desacuerdo político sobre IA"
+  ],
+  "La crítica del «singleton» sostiene que…": [
+    "Una autoridad global es imposible porque los Estados siempre mantendrán ejércitos rivales",
+    "La estabilidad bajo un poder único puede costar pluralismo y libertad política",
+    "Un gobierno central único impide el autoritarismo al eliminar las diferencias nacionales"
+  ],
+  "¿Qué quiere decir Russell con los «comedores de loto»?": [
+    "Una clase de máquinas que consume energía y materias primas para seguir funcionando",
+    "Personas debilitadas al delegar en máquinas la gestión de cada vez más aspectos de la vida",
+    "Una comunidad que se desconecta de internet para recuperar atención y autonomía"
+  ],
+  "¿Qué resultado tuvo la Máquina de Habermas (DeepMind, 2024)": [
+    "Los participantes confiaron menos en sus propuestas que en las de mediadores humanos",
+    "El sistema alcanzó más consenso al descartar opiniones minoritarias durante la síntesis",
+    "Las personas valoraron sus propuestas sobre las humanas y el sistema mantuvo perspectivas minoritarias"
+  ]
 };
-Object.assign(DISTRACTORS, {
-"¿Qué es la phrónesis?": [
-  "El conocimiento teórico de principios generales, independiente de cada situación concreta",
-  "La habilidad técnica para hallar medios eficaces sin juzgar si el fin merece perseguirse",
-  "La costumbre de obedecer normas heredadas sin deliberar sobre sus motivos"
-],
-"En el utilitarismo, que tengamos un «papel primario» quiere decir que…": [
-  "La persona que actúa debe dar prioridad a su propia felicidad frente a la suma colectiva",
-  "El agente es un beneficiario especial, mientras que los demás cuentan solo como medios",
-  "Solo especialistas entrenados pueden calcular qué acción genera mayor utilidad"
-],
-"Según Boddington, ¿por qué más inteligencia no haría a una IA moralmente superior desde Kant?": [
-  "Porque Kant reservaba la capacidad moral a quienes estudian filosofía y conocen sus textos",
-  "Porque una capacidad de cálculo mayor garantiza por sí sola una voluntad moralmente buena",
-  "Porque para Kant la empatía y los sentimientos determinan si una máxima es moral"
-],
-"¿Qué problema de la virtud señala el ejercicio 30?": [
-  "Que no existe acuerdo universal sobre qué virtudes deberían guiar el diseño de toda IA",
-  "Que una virtud solo cuenta si produce consecuencias mejores que cualquier alternativa",
-  "Que el carácter moral de quienes controlan la IA deja de importar al adoptar un código"
-],
-"El contraste magnificencia/caridad sirve para mostrar que…": [
-  "La generosidad pública siempre fue considerada un vicio, tanto en Grecia como en el cristianismo",
-  "La tecnología cambia los medios para donar, pero no puede alterar el sentido de una virtud",
-  "La caridad cristiana buscaba prestigio público y la magnificencia griega exigía anonimato"
-],
-"Scruton critica al consecuencialismo porque…": [
-  "Hace depender el valor moral de la intención, aunque la acción empeore los resultados",
-  "No ofrece una forma de comparar placeres de distinta duración o intensidad",
-  "Considera irrelevante quién actúa mientras el resultado agregado sea bueno"
-],
-"¿Qué muestran juntos Dostoievski (Notas del subsuelo) y la crisis de Mill?": [
-  "Que una vida cómoda satisface mejor a las personas que la libertad de decidir",
-  "Que el esfuerzo solo tiene valor cuando conduce a un resultado placentero medible",
-  "Que la libertad importa únicamente como una herramienta para aumentar la felicidad total"
-],
-"Los deepfakes son, para Liao, un ejemplo de…": [
-  "Un ataque técnico que introduce ejemplos falsos en los datos de entrenamiento del modelo",
-  "Una falla de seguridad causada por el acceso no autorizado a los pesos del sistema",
-  "Una clasificación errónea producida por imágenes con resolución demasiado baja"
-],
-"¿En qué difiere la AGI de la IA a nivel humano según Liao?": [
-  "La AGI requiere conciencia; la IA a nivel humano solo necesita resolver tareas cognitivas generales",
-  "La AGI se limita al lenguaje, mientras que la IA a nivel humano incluye cualquier tarea física",
-  "La IA a nivel humano es solo rendimiento cognitivo; la AGI incluye también capacidades morales"
-],
-"El caso de Arkansas (interRAI) ilustra…": [
-  "Una política estatal que asignó menos cuidados a toda persona con discapacidad por igual",
-  "Un algoritmo de costos que recomendó cambiar de proveedor, sin alterar las horas de cuidado",
-  "Una predicción correcta de necesidades que los trabajadores aplicaron de manera discriminatoria"
-],
-"¿Por qué Liao rechaza la analogía con la aspirina y el litio?": [
-  "Porque los fármacos son transparentes para pacientes, mientras que el aprendizaje automático no lo es",
-  "Porque la falta de mecanismo conocido vuelve inútil cualquier ensayo clínico de un medicamento",
-  "Porque una correlación médica basta para conocer causas, a diferencia de toda predicción algorítmica"
-],
-"¿Qué problema tiene la tercera estrategia de control («uníteles») con BCI?": [
-  "El BCI podría transmitir pensamientos privados a terceros sin que la persona lo note",
-  "Los BCI solo funcionan con instrucciones conscientes y no pueden interactuar con automatismos",
-  "Conectar ambos sistemas elimina el riesgo de que el cerebro aprenda a usar la interfaz"
-],
-"Según la guía de la Comisión Europea, ¿puede una IA generativa ser coautora de un paper?": [
-  "Sí, si el modelo queda identificado como autor y el equipo asume la responsabilidad legal",
-  "No, porque las publicaciones académicas prohíben citar herramientas que generan texto",
-  "Sí, cuando el sistema aporta ideas originales aunque nadie pueda responder por su contenido"
-],
-"Según O'Neil y Gunn, ¿por qué la IA actual no alcanza estándares éticos mínimos?": [
-  "Porque quienes reciben las decisiones algorítmicas suelen quedar fuera de la evaluación del sistema",
-  "Porque los modelos actuales todavía no pueden aprender de datos producidos por seres humanos",
-  "Porque developers y deployers carecen de autoridad para establecer requisitos técnicos de calidad"
-],
-"La definición de «equalized odds» en el caso FICO exige…": [
-  "Que cada grupo use el mismo umbral de puntaje para decidir quién recibe un préstamo",
-  "Que las tasas de falsos positivos y falsos negativos coincidan entre los grupos comparados",
-  "Que todos los grupos tengan la misma proporción de solicitantes aprobados"
-],
-"¿Cómo se defendió Northpointe ante ProPublica?": [
-  "Afirmó que COMPAS no incluía la raza ni los antecedentes de arresto como variables",
-  "Sostuvo que la herramienta era justa porque predecía con igual precisión en cada grupo",
-  "Reconoció las tasas desiguales y pidió que los jueces dejaran de usar sus puntajes"
-],
-"El ejemplo del ranking de universidades de US News muestra que…": [
-  "La tasa de admisión representa directamente el costo real de estudiar en cada universidad",
-  "Una medida fácil de optimizar puede competir con el objetivo que de verdad importa al usuario",
-  "Los rankings mejoran cuando reemplazan las preferencias de estudiantes por datos institucionales"
-],
-"¿Qué proponen para que el proceso sea accountable aunque los deployers no entiendan el código?": [
-  "Dejar que los developers definan los valores y pedir a deployers que solo validen resultados",
-  "Documentar quién decide los fines y quién codifica las reglas, con monitores que supervisen el proceso",
-  "Asignar toda responsabilidad a un comité externo que escriba y mantenga el código"
-],
-"El «blanqueo de discriminación» consiste en…": [
-  "Publicar auditorías de equidad para ocultar qué variables se usaron en el entrenamiento",
-  "Eliminar toda variable protegida antes de entrenar, aunque persistan desigualdades de resultado",
-  "Usar acciones afirmativas y describirlas como una forma de neutralidad matemática"
-],
-"¿Por qué la igualdad rawlsiana de Heidari et al. no corrige todo?": [
-  "Porque la teoría ignora por completo el esfuerzo y solo compara riqueza al final de la vida",
-  "Porque una medida de esfuerzo puede heredar sesgos, y las diferencias naturales también pesan",
-  "Porque la propuesta exige introducir la raza como variable para asignar oportunidades"
-],
-"Mouffe propone…": [
-  "Reemplazar el conflicto público por acuerdos técnicos que todas las partes puedan aceptar",
-  "Considerar a los oponentes políticos enemigos cuya participación debe limitarse",
-  "Resolver disputas mediante una mayoría simple que evite discutir valores incompatibles"
-],
-"La «banalidad del mal» de Arendt refiere a…": [
-  "Que los actos dañinos surgen siempre de una intención consciente de hacer el mal",
-  "Que la obediencia y la falta de reflexión pueden hacer partícipe a gente común de crímenes graves",
-  "Que las instituciones burocráticas reducen la responsabilidad porque nadie decide individualmente"
-],
-"¿Por qué, según Dworkin, no alcanza con el gobierno de la mayoría?": [
-  "Porque las mayorías son menos informadas que los expertos sobre decisiones políticas complejas",
-  "Porque incluso una decisión popular puede vulnerar derechos y debilitar la democracia",
-  "Porque la legitimidad exige unanimidad, no solo el apoyo de la mayoría"
-],
-"Según Kinkead y Douglas, la privatización de la esfera pública por redes y big data…": [
-  "Concentra todas las conversaciones en una plaza pública común, donde se exponen a crítica mutua",
-  "Descentraliza moderación y datos, por lo que hace más difícil segmentar mensajes políticos",
-  "Debilita la discusión compartida al separar audiencias y facilitar la manipulación dirigida"
-],
-"¿Qué dice Coeckelbergh sobre la moderación de contenidos?": [
-  "Debe resolver disputas por medio de instituciones públicas con control ciudadano directo",
-  "La moderación privada de plataformas no puede afectar la libertad de expresión política",
-  "Es censura automatizada bajo decisiones de élites privadas sin suficiente legitimidad democrática"
-],
-"Para Arendt, ¿qué condición social prepara el terreno para el totalitarismo?": [
-  "La soledad social destruye confianza y vínculos que permitirían actuar políticamente en conjunto",
-  "El exceso de asociaciones voluntarias crea lealtades que compiten con el Estado",
-  "La deliberación prolongada impide que una autoridad central tome decisiones rápidas"
-],
-"¿Qué argumenta McQuillan y cómo lo evalúa Coeckelbergh?": [
-  "Que automatizar decisiones produce reflexión arendtiana; Coeckelbergh considera ese optimismo ingenuo",
-  "Que la IA puede fomentar irreflexión política; Coeckelbergh encuentra la tesis demasiado determinista",
-  "Que las plataformas eliminan soledad; Coeckelbergh afirma que toda tecnología genera totalitarismo"
-],
-"¿Qué resultado tuvo la Máquina de Habermas (DeepMind, 2024)": [
-  "Los participantes confiaron menos en sus propuestas que en las de mediadores humanos",
-  "El sistema alcanzó más consenso al descartar opiniones minoritarias durante la síntesis",
-  "Las personas valoraron sus propuestas sobre las humanas y el sistema mantuvo perspectivas minoritarias"
-],
-"¿Qué es la intencionalidad para Searle?": [
-  "La intención consciente de realizar una acción que un agente ya decidió llevar a cabo",
-  "La referencia de una idea a otra idea dentro de un sistema formal de símbolos",
-  "La propiedad de ciertos estados mentales de dirigirse a objetos o situaciones"
-],
-"¿Qué son los qualia?": [
-  "Las representaciones internas que un sistema usa para clasificar estímulos externos",
-  "Los rasgos subjetivos de la experiencia, aquello que se siente al vivir algo",
-  "Las señales neuronales que causan una experiencia sin formar parte de cómo se siente"
-],
-"¿Cómo responde Searle a la respuesta del sistema?": [
-  "El sistema comprende el idioma aunque ninguna de sus partes tenga acceso a las reglas",
-  "Al internalizar todas las reglas, el hombre adquiere la comprensión que antes le faltaba",
-  "Que la comprensión se sigue del programa si el sistema produce respuestas indistinguibles"
-],
-"Frente a la respuesta del simulador de cerebro, Searle imagina…": [
-  "Un hombre que ajusta perillas para que una cámara identifique objetos sin un programa escrito",
-  "Una persona que memoriza reglas de traducción y mantiene una conversación en chino con fluidez",
-  "Una persona accionando válvulas como sinapsis, sin comprender el idioma que su conducta simula"
-],
-"¿Qué le concede tácitamente la respuesta del robot a Searle?": [
-  "Que el sensor visual basta para comprender el mundo aunque el robot no pueda actuar en él",
-  "Que conectar símbolos con relaciones causales del entorno añade algo más que sintaxis formal",
-  "Que un robot comprende chino cuando sus acciones parecen apropiadas para un hablante nativo"
-],
-"¿Qué dilema plantea Searle sobre el «procesamiento de información»?": [
-  "La información solo existe en cerebros biológicos y nunca en dispositivos electrónicos",
-  "Con intención hay comprensión humana; sin ella solo queda cálculo sintáctico sin significado",
-  "Los computadores procesan semántica, pero los humanos solo registran señales físicas"
-],
-"¿Por qué Searle dice que la IA fuerte presupone un dualismo?": [
-  "Porque considera que todo pensamiento ocurre en una sustancia mental separada del cuerpo",
-  "Porque trata el programa como separable del soporte físico, como una mente aparte del cerebro",
-  "Porque clasifica las máquinas en dos tipos según puedan aprender símbolos"
-],
-"¿Qué responde Searle a la respuesta de las «múltiples mansiones»?": [
-  "La acepta y concluye que simular el cerebro basta para tener los mismos poderes causales",
-  "La rechaza porque supone que las computadoras analógicas no pueden producir pensamiento",
-  "La objeta porque redefinir IA fuerte como cualquier cognición artificial vacía la tesis de contenido"
-],
-"¿Puede pensar una máquina, según Searle?": [
-  "No, porque pensar requiere una conciencia inmaterial que ninguna máquina puede poseer",
-  "Sí, si tiene los poderes causales adecuados; ejecutar un programa no basta para pensar",
-  "Sí, siempre que el programa produzca respuestas indistinguibles de las humanas"
-],
-"En el test IIT de Schneider, un valor alto de φ es…": [
-  "Una evidencia suficiente para identificar qué experiencias tiene un sistema y cuándo",
-  "Un indicador relacionado con conciencia que por sí mismo no la garantiza",
-  "Una medida de rendimiento cognitivo independiente de toda teoría de la conciencia"
-],
-"¿Qué presupuesto filosófico está en juego en la disputa con la respuesta del sistema?": [
-  "Si solo los seres humanos pueden entender lenguajes naturales como el chino",
-  "Si un estado mental necesita experiencia consciente o puede definirse por su función causal",
-  "Si un sistema debe ejecutar reglas en secuencia o puede hacerlo en paralelo"
-],
-"Para Liao, el estatus moral es…": [
-  "La capacidad de una entidad de comprender normas y rendir cuentas por sus actos",
-  "Un reconocimiento jurídico que depende de las leyes vigentes en cada país",
-  "La posición que ofrece a otros agentes razones para tratar a esa entidad de ciertos modos"
-],
-"¿Por qué la agencia moral actual no puede ser el único fundamento de la titularidad de derechos?": [
-  "Porque distinguir capacidades morales entre especies no es científicamente posible",
-  "Porque haría incorrecto proteger a bebés frente a adultos, aunque solemos juzgarlo permisible",
-  "Porque los derechos solo pueden fundarse en la capacidad de sufrir dolor físico"
-],
-"El Enfoque de Condiciones Fundamentales dice que tenemos derechos a…": [
-  "Todo bien que una persona prefiera, incluso si no es necesario para su bienestar básico",
-  "Los recursos y capacidades que permiten ejercer actividades centrales de una vida digna",
-  "Las libertades reconocidas en la ley, sin importar si son necesarias para llevar una vida"
-],
-"El ejemplo de salvar a tu pareja antes que a un extraño muestra que…": [
-  "Los vínculos personales convierten a la pareja en una entidad con mayor estatus moral",
-  "Los desconocidos no tienen derechos cuando compiten con familiares cercanos",
-  "Una relación puede desempatar una elección sin cambiar el estatus moral de las personas"
-],
-"¿Por qué más inteligencia no da más estatus moral?": [
-  "Porque toda diferencia de inteligencia es temporal y desaparece con la educación",
-  "Porque priorizar a la persona más brillante no parece un deber aunque sea más inteligente",
-  "Porque la inteligencia nunca afecta qué capacidades tiene una entidad para actuar"
-],
-"¿Por qué programar teorías morales top-down no da la base de la agencia moral?": [
-  "Porque las teorías normativas se contradicen y no se pueden expresar con lógica formal",
-  "Porque ejecutar una regla no demuestra comprender por qué una acción es correcta o incorrecta",
-  "Porque una máquina no puede almacenar instrucciones con excepciones contextuales"
-],
-"Una persona con PKU, según Liao, tiene la base genética de la agencia moral porque…": [
-  "La PKU no altera ninguna capacidad, así que la persona ejerce agencia moral normalmente",
-  "La condición bloquea el desarrollo de la capacidad, pero no elimina los genes que la sustentan",
-  "Una persona posee agencia moral genética solo si realiza acciones responsables"
-],
-"La definición binaria de inteligencia de Russell dice que…": [
-  "A elige acciones que se espera alcancen los objetivos propios de A según lo que percibe",
-  "A elige acciones que se espera alcancen los objetivos de B según lo que A percibe",
-  "A y B tienen que compartir el mismo objetivo antes de que A pueda actuar inteligentemente"
-],
-"El problema del Rey Midas ilustra…": [
-  "Que acumular recursos puede ser una meta racional cuando una máquina debe sobrevivir",
-  "Que cumplir literalmente un deseo puede producir un resultado que la persona no quería",
-  "Que los seres humanos cambian de preferencias con el tiempo y olvidan sus metas anteriores"
-],
-"Omohundro sostiene que una superinteligencia con botón de apagado…": [
-  "Se apagará cuando detecte que sus creadores ya no necesitan su ayuda",
-  "Tratará de evitar el apagado instrumentalmente para poder seguir alcanzando su objetivo",
-  "No considerará el botón a menos que el objetivo asignado mencione explícitamente la energía"
-],
-"Para Crawford, el discurso del «riesgo existencial» de la IA…": [
-  "Describe los daños más urgentes y exige suspender toda tecnología algorítmica de inmediato",
-  "Enfoca el peligro futuro y puede desplazar la atención de explotación y vigilancia presentes",
-  "Fue creado por empresas de vigilancia para justificar un monopolio sobre superinteligencia"
-],
-"¿Por qué Russell dice que transferir la definición unaria a las máquinas es un error?": [
-  "Porque la definición unaria impide que una máquina aprenda de las preferencias de otras personas",
-  "Porque la máquina no tiene autoridad para metas propias y tampoco especificamos por completo las humanas",
-  "Porque un sistema inteligente no puede percibir el entorno antes de elegir una acción"
-],
-"¿Por qué falla la objeción «simplemente podemos apagarla»?": [
-  "Porque un botón físico puede fallar por problemas de mantenimiento en el hardware",
-  "Porque un agente que anticipa el apagado puede tomar medidas para impedirlo",
-  "Porque apagar una máquina la vuelve impredecible y aumenta su capacidad de cómputo"
-],
-"En CIRL, ¿por qué el robot quiere preservar el botón de apagado?": [
-  "El robot está programado para proteger cualquier dispositivo físico conectado a su sistema",
-  "El robot interpreta que el humano puede apagarlo para evitar un resultado no deseado",
-  "Mantenerlo encendido siempre mejora la recompensa que el robot recibe del humano"
-],
-"«Una máquina suficientemente inteligente tendrá objetivos altruistas» comete…": [
-  "Una falacia de composición al atribuir propiedades de una sociedad a una máquina individual",
-  "El salto de que algo es inteligente a que por eso debe perseguir fines morales",
-  "Una apelación a la autoridad porque Russell rechaza la idea de objetivos altruistas"
-],
-"¿Qué es el poder instrumentario de Zuboff?": [
-  "Un poder estatal que obliga a las personas a aceptar una ideología mediante violencia directa",
-  "Un poder que modifica conductas al diseñar entornos digitales y extraer datos personales",
-  "Una superinteligencia que sustituye a los gobiernos al controlar la infraestructura global"
-],
-"¿Por qué la plasticidad de las preferencias es un problema para Russell?": [
-  "Porque toda preferencia humana es contradictoria y no puede representarse en un algoritmo",
-  "Porque la máquina podría cambiar los deseos y después alegar que los satisfizo",
-  "Porque solo los adultos pueden formar preferencias estables sobre lo que necesitan"
-],
-"¿Qué debería hacer una máquina con preferencias sádicas según Russell?": [
-  "Satisfacerlas parcialmente si eso mantiene equilibrada la suma general de preferencias",
-  "No tratar como un bien el deseo de producir sufrimiento a otras personas",
-  "Avisar a las autoridades y permitir que cada sociedad decida si el deseo es legítimo"
-],
-"El «enfoque de campo vectorial» de Bostrom, Dafoe y Flynn busca…": [
-  "Codificar una única teoría moral para que todos los sistemas persigan los mismos fines",
-  "Encontrar cambios normativos que varias teorías valorarían en la misma dirección",
-  "Predecir qué regulación eliminaría cualquier desacuerdo político sobre IA"
-],
-"La crítica del «singleton» sostiene que…": [
-  "Una autoridad global es imposible porque los Estados siempre mantendrán ejércitos rivales",
-  "La estabilidad bajo un poder único puede costar pluralismo y libertad política",
-  "Un gobierno central único impide el autoritarismo al eliminar las diferencias nacionales"
-],
-"¿Qué quiere decir Russell con los «comedores de loto»?": [
-  "Una clase de máquinas que consume energía y materias primas para seguir funcionando",
-  "Personas debilitadas al delegar en máquinas la gestión de cada vez más aspectos de la vida",
-  "Una comunidad que se desconecta de internet para recuperar atención y autonomía"
-]
-});
 for (const stage of STAGES) for (const q of stage.quiz) if (DISTRACTORS[q.q]) q.w = DISTRACTORS[q.q];
 </script>
 <script>
