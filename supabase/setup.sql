@@ -3,6 +3,7 @@ create table if not exists public.leaderboard (
   nick text not null check (char_length(nick) between 1 and 16),
   num smallint not null check (num between 0 and 99),
   color text not null check (color ~ '^#[0-9A-Fa-f]{6}$'),
+  avatar_url text,
   km bigint not null default 0 check (km >= 0),
   p1 integer not null default 0 check (p1 >= 0),
   p2 integer not null default 0 check (p2 >= 0),
@@ -10,6 +11,9 @@ create table if not exists public.leaderboard (
   gp smallint not null default 0 check (gp between 0 and 100),
   updated_at timestamptz not null default now()
 );
+
+-- Add the Google profile photo field when upgrading an existing leaderboard.
+alter table public.leaderboard add column if not exists avatar_url text;
 
 create table if not exists public.participant_progress (
   user_id uuid primary key references auth.users (id) on delete cascade,
