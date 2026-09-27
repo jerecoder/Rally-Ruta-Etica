@@ -3,6 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<script src="supabase-config.js"></script>
 <style>
 :root{
   color-scheme: dark;
@@ -1209,6 +1210,7 @@ const GRAND_PRIX_ESSAYS = [
 const $ = (s, el=document) => el.querySelector(s);
 const app = $("#app");
 const LS_KEY = "rutaetica.v1";
+const LAST_USER_KEY = "rutaetica.lastUser";
 const TIERS = ["", "Karting", "Turismo", "Fórmula"];
 const COLORS = ["#4cb3ff","#f2c230","#ff6a2b","#34c77b","#a88bff","#e9e6df","#ef5350"];
 const STAGE_BY_ID = Object.fromEntries(STAGES.map(s => [s.id, s]));
@@ -1238,7 +1240,7 @@ let S = blankState();
 try { const raw = localStorage.getItem(LS_KEY); if (raw) S = Object.assign(blankState(), JSON.parse(raw)); } catch(e) {}
 const st = id => (S.stages[id] ||= blankStage());
 
-let DB = null, USER = null, UID = null, SAMPLE = null, canWrite = null, lbRows = [], lbStatus = "loading";
+let SB = null, USER = null, UID = null, lbRows = [], lbStatus = "loading", lbChannel = null;
 let saveTimer = null;
 function save(){
   S.updatedAt = Date.now();
@@ -1248,18 +1250,17 @@ function save(){
 }
 let pushing = false, pushAgain = false;
 async function pushRemote(){
-  if (!DB || !UID || !S.pilot) return;
+  if (!SB || !UID || !S.pilot) return;
   if (pushing) { pushAgain = true; return; }
   pushing = true;
   try {
-    await DB.doc("data/users/" + UID + "/progress").set({ state: JSON.stringify(S), updatedAt: S.updatedAt });
-  } catch(e) {}
-  if (canWrite !== false) {
+    const { error: progressError } = await SB.from("participant_progress").upsert({ user_id: UID, state: S, updated_at: new Date(S.updatedAt).toISOString() });
+    if (progressError) throw progressError;
     const pods = podiumCounts();
-    const row = { nick: S.pilot.nick, num: S.pilot.num, color: S.pilot.color, km: Math.round(S.km), p1: pods.p1, p2: pods.p2, p3: pods.p3, gp: Math.round((S.gp.best||0)*100), updatedAt: S.updatedAt };
-    try { await DB.doc("leaderboard/" + UID).set(row); }
-    catch(e) { if (e && e.code === "invalid_argument") { canWrite = false; lbStatus = "readonly"; refreshSide(); } }
-  }
+    const row = { user_id: UID, nick: S.pilot.nick, num: S.pilot.num, color: S.pilot.color, km: Math.round(S.km), p1: pods.p1, p2: pods.p2, p3: pods.p3, gp: Math.round((S.gp.best||0)*100), updated_at: new Date(S.updatedAt).toISOString() };
+    const { error: scoreError } = await SB.from("leaderboard").upsert(row);
+    if (scoreError) throw scoreError;
+  } catch(e) { console.error("Supabase sync failed", e); toast("No se pudo sincronizar. Revisá la conexión."); }
   pushing = false;
   if (pushAgain) { pushAgain = false; pushRemote(); }
 }
@@ -1305,13 +1306,12 @@ function car(color, num, w=120){
 /* ---------- HUD ---------- */
 function renderHud(){
   const r = $("#hudRight");
-  if (!S.pilot) { r.innerHTML = ""; return; }
-  r.innerHTML = `
+  r.innerHTML = `${UID ? `<button class="btn sm ghost" id="authBtn" title="Cerrar sesión">Salir de Google</button>` : `<button class="btn sm" id="authBtn">Ingresar con Google</button>`}${S.pilot ? `
     <span class="odo" title="Kilómetros recorridos (tu puntaje)">${fmtKm(S.km).padStart(5,"0")}<small>KM</small></span>
     <button class="chip" id="hudPilot" title="Editar piloto">${car(S.pilot.color, S.pilot.num, 44)} <b>${esc(S.pilot.nick)}</b></button>
-    <button class="btn sm ghost" id="hudLb">Tabla</button>`;
-  $("#hudPilot").onclick = () => go("garage");
-  $("#hudLb").onclick = () => go("board");
+    <button class="btn sm ghost" id="hudLb">Tabla</button>` : ""}`;
+  $("#authBtn").onclick = () => UID ? SB.auth.signOut().then(() => location.reload()) : signInGoogle();
+  if (S.pilot) { $("#hudPilot").onclick = () => go("garage"); $("#hudLb").onclick = () => go("board"); }
 }
 $("#logo").onclick = () => go(S.pilot ? "home" : "garage");
 
@@ -1407,7 +1407,7 @@ function renderHome(){
   refreshSide();
 }
 function lbHTML(limit){
-  if (lbStatus === "none") return `<p class="note">Versión offline: tu progreso se guarda en este navegador. Para competir, copiá tu resultado y pegalo en el grupo.</p><div class="row" style="margin-top:8px"><button class="btn go sm" id="shareRes">Copiar mi resultado</button></div><div id="shareBox"></div>`;
+  if (lbStatus === "none") return `<p class="note">Ingresá con Google para guardar tu progreso y aparecer en la tabla compartida.</p>${!UID ? `<button class="btn go sm" id="lbSignIn">Ingresar con Google</button>` : ""}`;
   const rows = lbRows.slice(0, limit);
   const me = UID;
   const list = rows.length ? `<ol class="lb">${rows.map((r,i)=>`<li class="${r.id===me?"me":""}"><span class="pos">${i+1}</span>${car(r.color||"#888", r.num, 48)}<span class="nm">${esc(r.nick||"Piloto")}</span><span class="km">${fmtKm(r.km||0)} km</span></li>`).join("")}</ol>` : `<p class="note">${lbStatus==="loading"?"Cargando tabla…":"Todavía no hay pilotos. ¡Largá vos primero!"}</p>`;
@@ -1417,6 +1417,7 @@ function lbHTML(limit){
 function refreshSide(){
   const c = $("#lbCard"); if (c) c.innerHTML = `<div class="row"><h3 style="margin:0">Tabla de pilotos</h3><span class="spacer"></span><button class="btn sm ghost" id="lbAll">Ver toda</button></div><div style="margin-top:10px">${lbHTML(6)}</div>`;
   const a = $("#lbAll"); if (a) a.onclick = () => go("board");
+  const si = $("#lbSignIn"); if (si) si.onclick = signInGoogle;
   const sr = $("#shareRes"); if (sr) sr.onclick = () => {
     const p = podiumCounts();
     const lines = STAGES.map((x,i)=>{ const q = podium(x.id); return `${i+1}. ${x.short}: ${q?"P"+q:"—"} (${TIERS[st(x.id).tier]})`; });
@@ -1792,35 +1793,49 @@ function renderGP(){
 
 /* ---------- capabilities ---------- */
 async function initCaps(){
-  const c = null;
-  if (!c || typeof c.use !== "function") { lbStatus = "none"; refreshSide(); return; }
-  const [db, user, sample] = await Promise.all([c.use("db").catch(()=>null), c.use("user").catch(()=>null), c.use("sample").catch(()=>null)]);
-  SAMPLE = sample || null;
-  USER = user; DB = db;
-  if (user) { try { UID = await user.id(); } catch(e) { UID = null; } try { const w = await user.can("data.write"); if (w === false) canWrite = false; } catch(e) {} }
-  if (!DB) { lbStatus = "none"; refreshSide(); return; }
-  if (canWrite === false) lbStatus = "readonly";
-  // leaderboard
+  const cfg = window.RUTA_SUPABASE || {};
+  if (!cfg.url || !cfg.anonKey || cfg.url.includes("YOUR_") || cfg.anonKey.includes("YOUR_")) { lbStatus = "none"; refreshSide(); return; }
   try {
-    DB.collection("leaderboard").orderBy("km","desc").limit(100).onSnapshot(snap => {
-      lbRows = snap.docs.filter(d=>d.exists).map(d => ({ id:d.id, ...d.data() }));
-      if (lbStatus === "loading") lbStatus = "ok";
-      refreshSide();
-    }, () => { lbStatus = "none"; refreshSide(); });
-  } catch(e) { lbStatus = "none"; }
-  // remote progress
-  if (UID) {
-    try {
-      const d = await DB.doc("data/users/" + UID + "/progress").get();
-      if (d.exists) {
-        const body = d.data();
-        if (body && body.updatedAt > (S.updatedAt||0) && typeof body.state === "string") {
-          const remote = JSON.parse(body.state);
-          if (remote && remote.pilot) { S = Object.assign(blankState(), remote); try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch(e) {} if (["home","garage","board"].includes(VIEW.name)) go(VIEW.name === "garage" ? "home" : VIEW.name); else renderHud(); }
-        } else if (S.pilot && (S.updatedAt||0) > (body.updatedAt||0)) pushRemote();
-      } else if (S.pilot) pushRemote();
-    } catch(e) {}
+    const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+    SB = createClient(cfg.url, cfg.anonKey);
+    const { data: { session }, error } = await SB.auth.getSession(); if (error) throw error;
+    USER = session?.user || null; UID = USER?.id || null;
+    await loadLeaderboard();
+    lbChannel = SB.channel("leaderboard-live").on("postgres_changes", {event:"*", schema:"public", table:"leaderboard"}, loadLeaderboard).subscribe();
+    SB.auth.onAuthStateChange((_event, next) => { const nextUser = next?.user || null, nextId = nextUser?.id || null; USER = nextUser; if (nextId === UID) { renderHud(); return; } UID = nextId; if (!UID) { renderHud(); refreshSide(); } else initParticipant(); });
+    if (UID) await initParticipant(); else { renderHud(); refreshSide(); }
+  } catch(e) { console.error("Supabase initialization failed", e); lbStatus = "none"; renderHud(); refreshSide(); }
+}
+
+async function signInGoogle(){
+  if (!SB) { toast("Falta configurar Supabase. Revisá supabase-config.js"); return; }
+  const { error } = await SB.auth.signInWithOAuth({ provider:"google", options:{ redirectTo:location.href.split("#")[0] } });
+  if (error) { console.error(error); toast("No se pudo iniciar sesión con Google."); }
+}
+
+async function initParticipant(){
+  if (!SB || !UID) return;
+  let lastUser = null; try { lastUser = localStorage.getItem(LAST_USER_KEY); } catch(e) {}
+  if (lastUser && lastUser !== UID) S = blankState();
+  try { localStorage.setItem(LAST_USER_KEY, UID); } catch(e) {}
+  renderHud(); lbStatus = "loading";
+  const { data: progress, error: progressError } = await SB.from("participant_progress").select("state, updated_at").eq("user_id", UID).maybeSingle();
+  if (progressError) console.error("Progress load failed", progressError);
+  const remote = progress?.state;
+  if (remote?.pilot && (Date.parse(progress.updated_at)||0) > (S.updatedAt||0)) {
+    S = Object.assign(blankState(), remote); S.updatedAt = Date.parse(progress.updated_at)||0;
+    try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch(e) {}
+    if (["home","garage","board"].includes(VIEW.name)) go(VIEW.name === "garage" ? "home" : VIEW.name); else renderHud();
   }
+  if (S.pilot && (!remote || (S.updatedAt||0) > (Date.parse(progress.updated_at)||0))) await pushRemote();
+}
+
+async function loadLeaderboard(){
+  if (!SB) return;
+  const { data, error } = await SB.from("leaderboard").select("user_id,nick,num,color,km,p1,p2,p3,gp,updated_at").order("km", {ascending:false}).limit(100);
+  if (error) { console.error("Leaderboard load failed", error); lbStatus = "none"; }
+  else { lbRows = (data||[]).map(row => ({...row, id:row.user_id})); lbStatus = "ok"; }
+  refreshSide();
 }
 
 document.addEventListener("keydown", e => {
