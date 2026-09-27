@@ -1828,15 +1828,48 @@ $("#logo").onclick = () => go(S.pilot ? "home" : "garage");
 /* ---------- router ---------- */
 let VIEW = { name:"home" };
 let stopTimer = null;
-function go(name, params={}){
+function routeUrl(view){
+  const params = new URLSearchParams();
+  for (const [key, value] of Object.entries(view)) {
+    if (key !== "name" && value !== undefined && value !== null) params.set(key, value);
+  }
+  return `#/${encodeURIComponent(view.name)}${params.size ? `?${params}` : ""}`;
+}
+function routeFromUrl(){
+  const match = location.hash.match(/^#\/([^?]*)(?:\?(.*))?$/);
+  if (!match) return null;
+  let name;
+  try { name = decodeURIComponent(match[1]); } catch(e) { return null; }
+  const allowed = new Set(["home","garage","stage","lap","sort","essay","board","gp"]);
+  if (!allowed.has(name)) return null;
+  const params = Object.fromEntries(new URLSearchParams(match[2] || ""));
+  if (name === "stage" || name === "essay") {
+    if (!STAGE_BY_ID[params.id]) return null;
+    if (name === "stage" && !["read","play"].includes(params.tab)) params.tab = "read";
+  }
+  if (["home","garage","board","gp"].includes(name)) return {name};
+  return {name, ...params};
+}
+function renderRoute(view){
   if (stopTimer) { stopTimer(); stopTimer = null; }
-  VIEW = Object.assign({name}, params);
-  if (!S.pilot && name !== "garage") VIEW = { name:"garage" };
+  VIEW = view;
+  if (!S.pilot && VIEW.name !== "garage") VIEW = { name:"garage" };
   renderHud();
   const fn = ({home:renderHome, garage:renderGarage, stage:renderStage, lap:renderLap, sort:renderSort, essay:renderEssay, board:renderBoard, gp:renderGP})[VIEW.name] || renderHome;
   fn();
   window.scrollTo({top:0, behavior:"auto"});
 }
+function go(name, params={}){
+  let view = Object.assign({name}, params);
+  if (!S.pilot && name !== "garage") view = {name:"garage"};
+  const url = routeUrl(view);
+  if (location.hash !== url) history.pushState(null, "", url);
+  renderRoute(view);
+}
+window.addEventListener("popstate", () => {
+  const view = routeFromUrl() || {name:S.pilot ? "home" : "garage"};
+  renderRoute(!S.pilot && view.name !== "garage" ? {name:"garage"} : view);
+});
 
 /* ---------- garage ---------- */
 function renderGarage(){
@@ -1970,7 +2003,7 @@ function renderStage(){
   </div>
   <div id="tabBody"></div>`;
   $("#bk").onclick = () => go("home");
-  app.querySelectorAll(".tab").forEach(b => b.onclick = () => { VIEW.tab = b.dataset.t; renderStage(); });
+  app.querySelectorAll(".tab").forEach(b => b.onclick = () => go("stage", {id:x.id, tab:b.dataset.t}));
   const body = $("#tabBody");
   if (tab === "read") {
     body.innerHTML = `<div class="reader">
@@ -1978,8 +2011,8 @@ function renderStage(){
       ${x.sections.map((sec,i)=>`<details class="sec" ${i<2||!s.read?"open":""}><summary><h3>${md(sec.h)}</h3></summary><ul>${sec.p.map(p=>`<li>${md(p)}</li>`).join("")}</ul></details>`).join("")}
       <div class="readbar">${s.read ? `<span class="chip">✓ Leída</span><button class="btn go" id="toPlay">Ir a la pista</button>` : `<button class="btn go" id="markRead">Marcar como leída (+15 km)</button>`}<button class="btn ghost" id="toggleAll">Abrir/cerrar todo</button></div>
     </div>`;
-    if ($("#markRead")) $("#markRead").onclick = () => { s.read = true; S.km += 15; save(); toast("+15 km · hoja de ruta leída"); VIEW.tab = "play"; renderStage(); renderHud(); };
-    if ($("#toPlay")) $("#toPlay").onclick = () => { VIEW.tab = "play"; renderStage(); };
+    if ($("#markRead")) $("#markRead").onclick = () => { s.read = true; S.km += 15; save(); toast("+15 km · hoja de ruta leída"); go("stage", {id:x.id, tab:"play"}); };
+    if ($("#toPlay")) $("#toPlay").onclick = () => go("stage", {id:x.id, tab:"play"});
     $("#toggleAll").onclick = () => { const ds = body.querySelectorAll("details"); const open = [...ds].some(d=>!d.open); ds.forEach(d=>d.open=open); };
   } else {
     const done = Object.keys(s.essays).length;
@@ -2354,7 +2387,9 @@ document.addEventListener("keydown", e => {
   const k = "abcd".indexOf(e.key.toLowerCase());
   if (k >= 0 && !LAP.answered) answer(k);
 });
-go(S.pilot ? "home" : "garage");
+const initialRoute = routeFromUrl() || {name:S.pilot ? "home" : "garage"};
+renderRoute(!S.pilot && initialRoute.name !== "garage" ? {name:"garage"} : initialRoute);
+if (!location.hash) history.replaceState(null, "", routeUrl(VIEW));
 initCaps();
 })();
 
